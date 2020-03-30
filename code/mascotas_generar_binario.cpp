@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int tamano_arr_mascota;
+
 struct mascota{
     char nombre[32];
     char tipo[32];
@@ -26,9 +27,35 @@ mascota * leer_archivo(){
     return arr;
 }
 
+int guardar_estructura(void *arr){
+    FILE *apFile;
+    int r;
+    apFile = fopen("binaries/mascotas_array.bin","w+");
+    if(apFile == NULL){
+        perror("error fopen:");
+        exit(-1);
+    }
+    r = fwrite(arr, sizeof(mascota),tamano_arr_mascota, apFile);
+    if(r <= 0){
+        perror("error fwrite");
+        exit(-1);
+    }
+    r = fclose(apFile);
+    if(r < 0){
+        perror("error fclose: ");
+        exit(-1);
+    }
+    return 1;
+}
+
 
 int main (){
-    mascota *arr_mascotas = leer_archivo();
+    mascota *arr_mascotas = leer_archivo(), *lectura;
+    guardar_estructura(arr_mascotas);
+    
+    
+    //imprimir la estructura
+    /*
     for (int i =0;i<tamano_arr_mascota;++i){
         cout<< ((arr_mascotas + i)->nombre)<<' ';
         cout<< ((arr_mascotas + i)->tipo)<<' ';
@@ -38,6 +65,6 @@ int main (){
         cout<< ((arr_mascotas + i)->peso)<<' ';
         cout<< ((arr_mascotas + i)->sexo)<<'\n';
     }
+    */
 
-      
 }

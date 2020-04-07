@@ -9,30 +9,41 @@ struct mascota{
     float peso;
     char sexo;
 };
+int tamano;
 
-
-void recuperar_indice(int num_item){
+mascota recuperar_indice(int num_item){
     mascota m;
     ifstream archivo ("binaries/mascotas_array.bin", ios::in|ios::binary|ios::ate);
     archivo.seekg (sizeof(mascota) * num_item, ios::beg);
-    archivo.read(m.nombre,sizeof(m.nombre));
-    archivo.read(m.tipo,sizeof(m.tipo));
-    archivo.read(reinterpret_cast<char*>(&m.edad),sizeof(int));
-    archivo.read(m.raza,sizeof(m.raza));
-    archivo.read(reinterpret_cast<char*>(&m.estatura),sizeof(int));
-    archivo.read(reinterpret_cast<char*>(&m.peso), sizeof(float));
-    archivo.read(reinterpret_cast<char*>(&m.sexo), sizeof(char));
-    cout<<m.nombre<<endl;
-    cout<<m.tipo<<endl;
-    cout<<m.edad<<endl;
-    cout<<m.raza<<endl;
-    cout<<m.estatura<<endl;
-    cout<<m.peso<<endl;
-    cout<<m.sexo<<endl;
+    archivo.read((char*) &m,sizeof(mascota));
+    archivo.close();
+    return m;
+}
+void imprimir_estructura(mascota *m){
+    cout<<m->nombre  <<' ';
+    cout<<m->tipo    <<' ';
+    cout<<m->edad    <<' ';
+    cout<<m->raza    <<' ';
+    cout<<m->estatura<<' ';
+    cout<<m->peso    <<' ';
+    cout<<m->sexo    <<endl;
+}
+void escribir_al_final (mascota *m){
+    FILE *archivo ;
+    archivo = fopen("binaries/mascotas_array.bin", "ab+");
+    fwrite (m,sizeof(mascota), 1, archivo);
+    fclose(archivo);
+    ++tamano;
 }
 
 int main (){
-    mascota arr;
-    recuperar_indice(2);
-
+    mascota m;
+    ifstream archivo ("binaries/mascotas_array.bin", ios::in|ios::binary|ios::ate);
+    tamano = archivo.tellg() / sizeof(mascota);
+    archivo.close();
+    cout<<tamano<<endl;
+    for (int i=0;i<tamano;++i){
+        m = recuperar_indice(i);
+        imprimir_estructura(&m);
+    }
 }

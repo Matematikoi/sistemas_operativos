@@ -1,106 +1,109 @@
-105
-0)Lucas Perro 17000 Schnawser 30 5.234 M
-1)Misifu Gato 8 Callejero 25 4.17 H
-2)Beto Perro 4 Gran_Danes 130 40 M
-3)Rattatouile Raton 2 Chefsito 14 0.5 M
-4)Becan pajaro 25 raza_36 124 44.3786 H
-5)Tot tortuga 25 raza_0 114 14.8924 H
-6)Aramis gato 24 raza_4 131 2.43212 M
-7)Thayson hamster 24 raza_11 49 5.13055 H
-8)Duc gato 23 raza_40 134 4.04037 M
-9)Yugo gato 5 raza_9 41 14.651 H
-10)Horu hamster 15 raza_11 9 12.491 H
-11)Agustin pajaro 13 raza_3 36 28.2469 M
-12)Mencey tortuga 2 raza_6 29 35.1768 H
-13)Obelix pajaro 23 raza_14 5 22.3398 M
-14)Sammy pajaro 21 raza_43 120 29.4321 H
-15)Lucky gato 20 raza_41 41 11.716 H
-16)Patch tortuga 7 raza_12 118 44.1378 M
-17)Bleky pajaro 2 raza_27 31 24.9441 M
-18)Muky tortuga 15 raza_43 149 9.38642 H
-19)Coty gato 5 raza_28 57 7.65852 H
-20)Alaia pajaro 16 raza_10 90 36.6239 M
-21)Rabi tortuga 2 raza_8 19 35.2001 H
-22)Tal hamster 7 raza_39 93 43.3135 H
-23)Guzman tortuga 4 raza_33 103 41.0444 H
-24)White pajaro 12 raza_46 102 1.54502 M
-25)Peter gato 28 raza_29 122 32.9187 H
-26)Salvador tortuga 12 raza_39 4 44.5975 H
-27)Capone pajaro 20 raza_41 37 36.6099 M
-28)Zacarias pajaro 21 raza_49 112 25.8183 H
-29)Espi perro 23 raza_21 133 14.8517 M
-30)Liat gato 24 raza_2 141 23.7777 H
-31)Luck pajaro 29 raza_11 68 45.8658 H
-32)Dun pajaro 13 raza_8 131 13.248 M
-33)Manchita hamster 3 raza_9 44 23.1291 H
-34)Genaro gato 8 raza_37 137 20.4707 H
-35)Zar pajaro 10 raza_16 68 8.1972 H
-36)Mutis gato 22 raza_12 97 26.1168 H
-37)Alai tortuga 23 raza_35 125 31.6718 H
-38)Winner tortuga 5 raza_45 22 5.34356 M
-39)Archy gato 18 raza_38 16 18.5415 M
-40)Konig tortuga 26 raza_38 38 45.8141 M
-41)Magic pajaro 20 raza_9 36 13.1868 M
-42)Lucero hamster 24 raza_0 55 32.6222 M
-43)Hommer perro 24 raza_40 65 26.329 M
-44)Eulalio pajaro 17 raza_41 145 26.5192 H
-45)Batan perro 28 raza_31 82 39.0387 H
-46)German pajaro 23 raza_42 80 41.1114 M
-47)Tey pajaro 18 raza_23 106 9.02021 M
-48)Chut perro 8 raza_40 61 8.89965 M
-49)Boby tortuga 25 raza_28 134 5.4171 M
-50)Flay tortuga 3 raza_40 23 17.3594 H
-51)Gilberto tortuga 27 raza_0 3 17.97 H
-52)Marcos tortuga 0 raza_40 24 46.0763 M
-53)Porno perro 7 raza_0 27 24.4714 H
-54)Miky gato 20 raza_37 135 12.3409 H
-55)Quino pajaro 24 raza_48 30 31.6718 H
-56)Quino pajaro 17 raza_4 16 8.70248 M
-57)Milu gato 0 raza_11 74 1.96558 H
-58)Tabiot perro 13 raza_12 12 38.3253 M
-59)Pitu tortuga 4 raza_25 14 27.5223 H
-60)Aurelio tortuga 11 raza_15 112 29.6112 H
-61)Suka perro 17 raza_22 6 7.0532 M
-62)Sufi perro 13 raza_11 115 26.748 H
-63)Marcos tortuga 0 raza_3 3 33.7501 H
-64)Abanero tortuga 0 raza_39 119 25.6895 H
-65)Anouk gato 2 raza_35 137 40.8652 M
-66)Suri gato 28 raza_22 28 17.9903 M
-67)Pisco perro 1 raza_26 136 2.27882 M
-68)John pajaro 16 raza_33 20 5.27222 H
-69)Lucky perro 23 raza_19 131 17.8057 M
-70)Zen hamster 23 raza_27 68 43.6046 H
-71)Tokepik gato 16 raza_19 125 39.2348 H
-72)Dany perro 23 raza_44 0 27.845 H
-73)Jasm hamster 2 raza_10 45 10.4551 M
-74)Talco hamster 26 raza_38 2 18.2848 H
-75)Balti gato 23 raza_48 28 42.4395 M
-76)Noah tortuga 8 raza_5 115 1.97046 M
-77)Lido tortuga 3 raza_7 109 25.2138 M
-78)Alipio hamster 17 raza_4 108 48.382 M
-79)Lennox gato 14 raza_21 33 32.6222 M
-80)Titan gato 21 raza_34 134 0.302833 M
-81)Wi_Fi hamster 14 raza_17 37 8.0308 M
-82)Dositeo gato 16 raza_3 87 20.5987 H
-83)Sandino hamster 9 raza_27 123 26.1168 H
-84)Chimo pajaro 25 raza_11 9 28.3842 H
-85)Full pajaro 10 raza_16 39 3.42552 H
-86)Trufo gato 25 raza_30 106 26.9905 M
-87)Marcos perro 17 raza_18 66 23.7566 H
-88)Beny gato 12 raza_37 44 47.7059 M
-89)Dogui pajaro 25 raza_14 9 5.9839 M
-90)Omar pajaro 12 raza_14 82 39.4588 M
-91)Wesly perro 22 raza_32 46 0.92207 M
-92)Poncho tortuga 14 raza_4 45 24.0947 H
-93)Pik perro 29 raza_35 137 34.1677 H
-94)Colega pajaro 12 raza_38 108 13.1997 H
-95)Randy hamster 15 raza_34 85 18.5891 M
-96)Dari perro 8 raza_7 7 23.1566 H
-97)Michi perro 8 raza_39 102 15.3835 M
-98)Izor tortuga 20 raza_20 108 45.6872 H
-99)Paddy hamster 5 raza_3 126 49.6609 H
-100)Krong gato 20 raza_44 135 49.8306 M
-101)Ricky hamster 27 raza_7 54 3.97389 M
-102)Russ tortuga 18 raza_31 89 48.9614 M
-103)Solon gato 11 raza_9 94 15.2097 H
-104)Rattatouile Raton 2 Chefsito 14 0.5 M
+104
+Rattatouile Raton 2 Chefsito 14 0.5 M 105
+106
+0)Lucas Perro 17000 Schnawser 30 5.234 M 0
+1)Misifu Gato 8 Callejero 25 4.17 H 1
+2)Beto Perro 4 Gran_Danes 130 40 M 2
+3)Solon gato 11 raza_9 94 15.2097 H 103
+4)Becan pajaro 25 raza_36 124 44.3786 H 4
+5)Tot tortuga 25 raza_0 114 14.8924 H 5
+6)Aramis gato 24 raza_4 131 2.43212 M 6
+7)Thayson hamster 24 raza_11 49 5.13055 H 7
+8)Duc gato 23 raza_40 134 4.04037 M 8
+9)Yugo gato 5 raza_9 41 14.651 H 9
+10)Horu hamster 15 raza_11 9 12.491 H 10
+11)Agustin pajaro 13 raza_3 36 28.2469 M 11
+12)Mencey tortuga 2 raza_6 29 35.1768 H 12
+13)Obelix pajaro 23 raza_14 5 22.3398 M 13
+14)Sammy pajaro 21 raza_43 120 29.4321 H 14
+15)Lucky gato 20 raza_41 41 11.716 H 15
+16)Patch tortuga 7 raza_12 118 44.1378 M 16
+17)Bleky pajaro 2 raza_27 31 24.9441 M 17
+18)Muky tortuga 15 raza_43 149 9.38642 H 18
+19)Coty gato 5 raza_28 57 7.65852 H 19
+20)Alaia pajaro 16 raza_10 90 36.6239 M 20
+21)Rabi tortuga 2 raza_8 19 35.2001 H 21
+22)Tal hamster 7 raza_39 93 43.3135 H 22
+23)Guzman tortuga 4 raza_33 103 41.0444 H 23
+24)White pajaro 12 raza_46 102 1.54502 M 24
+25)Peter gato 28 raza_29 122 32.9187 H 25
+26)Salvador tortuga 12 raza_39 4 44.5975 H 26
+27)Capone pajaro 20 raza_41 37 36.6099 M 27
+28)Zacarias pajaro 21 raza_49 112 25.8183 H 28
+29)Espi perro 23 raza_21 133 14.8517 M 29
+30)Liat gato 24 raza_2 141 23.7777 H 30
+31)Luck pajaro 29 raza_11 68 45.8658 H 31
+32)Dun pajaro 13 raza_8 131 13.248 M 32
+33)Manchita hamster 3 raza_9 44 23.1291 H 33
+34)Genaro gato 8 raza_37 137 20.4707 H 34
+35)Zar pajaro 10 raza_16 68 8.1972 H 35
+36)Mutis gato 22 raza_12 97 26.1168 H 36
+37)Alai tortuga 23 raza_35 125 31.6718 H 37
+38)Winner tortuga 5 raza_45 22 5.34356 M 38
+39)Archy gato 18 raza_38 16 18.5415 M 39
+40)Konig tortuga 26 raza_38 38 45.8141 M 40
+41)Magic pajaro 20 raza_9 36 13.1868 M 41
+42)Lucero hamster 24 raza_0 55 32.6222 M 42
+43)Hommer perro 24 raza_40 65 26.329 M 43
+44)Eulalio pajaro 17 raza_41 145 26.5192 H 44
+45)Batan perro 28 raza_31 82 39.0387 H 45
+46)German pajaro 23 raza_42 80 41.1114 M 46
+47)Tey pajaro 18 raza_23 106 9.02021 M 47
+48)Chut perro 8 raza_40 61 8.89965 M 48
+49)Boby tortuga 25 raza_28 134 5.4171 M 49
+50)Flay tortuga 3 raza_40 23 17.3594 H 50
+51)Gilberto tortuga 27 raza_0 3 17.97 H 51
+52)Marcos tortuga 0 raza_40 24 46.0763 M 52
+53)Porno perro 7 raza_0 27 24.4714 H 53
+54)Miky gato 20 raza_37 135 12.3409 H 54
+55)Quino pajaro 24 raza_48 30 31.6718 H 55
+56)Quino pajaro 17 raza_4 16 8.70248 M 56
+57)Milu gato 0 raza_11 74 1.96558 H 57
+58)Tabiot perro 13 raza_12 12 38.3253 M 58
+59)Pitu tortuga 4 raza_25 14 27.5223 H 59
+60)Aurelio tortuga 11 raza_15 112 29.6112 H 60
+61)Suka perro 17 raza_22 6 7.0532 M 61
+62)Sufi perro 13 raza_11 115 26.748 H 62
+63)Marcos tortuga 0 raza_3 3 33.7501 H 63
+64)Abanero tortuga 0 raza_39 119 25.6895 H 64
+65)Anouk gato 2 raza_35 137 40.8652 M 65
+66)Suri gato 28 raza_22 28 17.9903 M 66
+67)Pisco perro 1 raza_26 136 2.27882 M 67
+68)John pajaro 16 raza_33 20 5.27222 H 68
+69)Lucky perro 23 raza_19 131 17.8057 M 69
+70)Zen hamster 23 raza_27 68 43.6046 H 70
+71)Tokepik gato 16 raza_19 125 39.2348 H 71
+72)Dany perro 23 raza_44 0 27.845 H 72
+73)Jasm hamster 2 raza_10 45 10.4551 M 73
+74)Talco hamster 26 raza_38 2 18.2848 H 74
+75)Balti gato 23 raza_48 28 42.4395 M 75
+76)Noah tortuga 8 raza_5 115 1.97046 M 76
+77)Lido tortuga 3 raza_7 109 25.2138 M 77
+78)Alipio hamster 17 raza_4 108 48.382 M 78
+79)Lennox gato 14 raza_21 33 32.6222 M 79
+80)Titan gato 21 raza_34 134 0.302833 M 80
+81)Wi_Fi hamster 14 raza_17 37 8.0308 M 81
+82)Dositeo gato 16 raza_3 87 20.5987 H 82
+83)Sandino hamster 9 raza_27 123 26.1168 H 83
+84)Chimo pajaro 25 raza_11 9 28.3842 H 84
+85)Full pajaro 10 raza_16 39 3.42552 H 85
+86)Trufo gato 25 raza_30 106 26.9905 M 86
+87)Marcos perro 17 raza_18 66 23.7566 H 87
+88)Beny gato 12 raza_37 44 47.7059 M 88
+89)Dogui pajaro 25 raza_14 9 5.9839 M 89
+90)Omar pajaro 12 raza_14 82 39.4588 M 90
+91)Wesly perro 22 raza_32 46 0.92207 M 91
+92)Poncho tortuga 14 raza_4 45 24.0947 H 92
+93)Pik perro 29 raza_35 137 34.1677 H 93
+94)Colega pajaro 12 raza_38 108 13.1997 H 94
+95)Randy hamster 15 raza_34 85 18.5891 M 95
+96)Dari perro 8 raza_7 7 23.1566 H 96
+97)Michi perro 8 raza_39 102 15.3835 M 97
+98)Izor tortuga 20 raza_20 108 45.6872 H 98
+99)Paddy hamster 5 raza_3 126 49.6609 H 99
+100)Krong gato 20 raza_44 135 49.8306 M 100
+101)Ricky hamster 27 raza_7 54 3.97389 M 101
+102)Russ tortuga 18 raza_31 89 48.9614 M 102
+103)Rattatouile Raton 2 Chefsito 14 0.5 M 104
+104)Rattatouile Raton 2 Chefsito 14 0.5 M 105
+105)Rattatouile Raton 2 Chefsito 14 0.5 M 106

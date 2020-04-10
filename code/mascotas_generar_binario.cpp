@@ -24,8 +24,8 @@ mascota * leer_archivo(){
         cin>>cur.estatura;
         cin>>cur.peso;
         cin>> cur.sexo;
-        cur.id = id;
-        ids[id] = id++;
+        cur.id = tamano_arr_mascota;
+        ids[tamano_arr_mascota] = tamano_arr_mascota;
         arr[tamano_arr_mascota++]=cur;
     }
     return arr;
@@ -59,7 +59,7 @@ int guardar_ids(void *arr){
         perror("error fopen:");
         exit(-1);
     }
-    r = fwrite(arr, sizeof(int),id, apFile);
+    r = fwrite(arr, sizeof(int),tamano_arr_mascota, apFile);
     if(r <= 0){
         perror("error fwrite");
         exit(-1);

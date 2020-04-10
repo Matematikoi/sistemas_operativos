@@ -94,23 +94,23 @@ int main (){
     tamano_id = archivo_ids.tellg() / sizeof(int);
     archivo_ids.close();
 
-
-    m = recuperar_indice(3);
+    
+    /*m = recuperar_indice(3);
     borrar_indice(3);
     anadir_mascota(&m);
     anadir_mascota(&m);
-    anadir_mascota(&m);
+    anadir_mascota(&m);*/
 
-
-    int idx_from_id = recuperar_id(105);
-    cout<<idx_from_id<<endl;
-    mascota foo = recuperar_indice(idx_from_id);
-    imprimir_estructura(&foo);
-
+    for (int i=10000002 -10;i<=10000002;++i){
+        int idx_from_id = recuperar_id(i);
+        cout<<i<<' '<<idx_from_id<<"----------";
+        mascota foo = recuperar_indice(idx_from_id);
+        imprimir_estructura(&foo);
+    }
     cout<<tamano<<endl;
-    for (int i=0;i<tamano;++i){
+    /*for (int i=0;i<10;++i){
         m = recuperar_indice(i);
         cout <<i<<')';
         imprimir_estructura(&m);
-    }
+    }*/
 }

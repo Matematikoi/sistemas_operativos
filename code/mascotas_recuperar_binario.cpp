@@ -9,7 +9,7 @@ struct mascota{
     float peso;
     char sexo;
 };
-int tamano;
+int tamano, tamano_real;
 
 mascota recuperar_indice(int num_item){
     mascota m;
@@ -34,16 +34,33 @@ void escribir_al_final (mascota *m){
     fwrite (m,sizeof(mascota), 1, archivo);
     fclose(archivo);
     ++tamano;
+    ++tamano_real;
+}
+void escribir_mascota_a_indice(int idx, mascota *m){
+    ofstream archivo ("binaries/mascotas_array.bin", ios::in|ios::binary|ios::ate);
+    archivo.seekp(sizeof(mascota) * idx);
+    archivo.write((char*) m,sizeof(mascota));
+    archivo.close();
+}
+void borrar_indice(int idx){
+    mascota ultima = recuperar_indice(tamano-1);
+    escribir_mascota_a_indice(idx, &ultima);
+    tamano--;
 }
 
 int main (){
     mascota m;
     ifstream archivo ("binaries/mascotas_array.bin", ios::in|ios::binary|ios::ate);
-    tamano = archivo.tellg() / sizeof(mascota);
+    tamano_real = tamano = archivo.tellg() / sizeof(mascota);
     archivo.close();
+
+    borrar_indice(3);
+
+
     cout<<tamano<<endl;
     for (int i=0;i<tamano;++i){
         m = recuperar_indice(i);
+        cout <<i<<')';
         imprimir_estructura(&m);
     }
 }

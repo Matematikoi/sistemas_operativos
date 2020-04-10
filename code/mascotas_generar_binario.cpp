@@ -13,7 +13,7 @@ struct mascota{
 };
 
 mascota * leer_archivo(){
-    static mascota arr[100];
+    static mascota arr[10000007];
     mascota cur;
     while (cin>>cur.nombre){
         cin>>cur.tipo;
@@ -51,6 +51,7 @@ int guardar_estructura(void *arr){
 
 int main (){
     mascota *arr_mascotas = leer_archivo(), *lectura;
+    cerr<<"tamano de arreglo: "<<tamano_arr_mascota<<endl;
     guardar_estructura(arr_mascotas);
     
     

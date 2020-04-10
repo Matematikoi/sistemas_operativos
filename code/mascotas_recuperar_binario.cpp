@@ -47,16 +47,23 @@ void borrar_indice(int idx){
     escribir_mascota_a_indice(idx, &ultima);
     tamano--;
 }
+void anadir_mascota(mascota *m){
+    if (tamano < tamano_real){
+        escribir_mascota_a_indice(tamano++,m);
+        return;
+    }
+    escribir_al_final(m);
+}
 
 int main (){
     mascota m;
     ifstream archivo ("binaries/mascotas_array.bin", ios::in|ios::binary|ios::ate);
     tamano_real = tamano = archivo.tellg() / sizeof(mascota);
     archivo.close();
-
-    borrar_indice(3);
-
-
+    m = recuperar_indice(3);
+    //borrar_indice(3);
+    anadir_mascota(&m);
+    
     cout<<tamano<<endl;
     for (int i=0;i<tamano;++i){
         m = recuperar_indice(i);

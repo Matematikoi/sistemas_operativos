@@ -1,5 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
+const int MOD = 5003;
+int tamano, tamano_real, tamano_id;
+
+
 struct mascota{
     char nombre[32];
     char tipo[32];
@@ -9,10 +13,32 @@ struct mascota{
     float peso;
     char sexo;
     int id;
+    int siguiente_con_mismo_hash;
+    int anterior_con_mismo_hash;
 };
-int tamano, tamano_real, tamano_id;
+int hashear_nombre(char *str){
+    int acu=0, base = 26, base_acumulada = 1,letra;
+    for( int i = 0 ; str[i]; ++ i ){
+        if (str[i]>='A' && str[i] <='Z'){
+            //caso mayusculas
+            letra = str[i]-'A';
+        }else if(str[i]>='a' && str[i] <='z') {
+            //caso minusculas
+            letra = str[i] -'a';
+        }else{
+            //caso no letra
+            continue;
+        }
+        acu= (acu +((letra*base_acumulada)%MOD))%MOD;
+        base_acumulada=(base*base_acumulada)%MOD;
+    }
+    return acu;
+}
 int recuperar_id (int num_id){
     int i;
+    if (tamano_id<=num_id){
+        return -1;
+    }
     ifstream archivo ("binaries/ids.bin", ios::in|ios::binary|ios::ate);
     archivo.seekg (sizeof(int) * num_id, ios::beg);
     archivo.read((char*) &i,sizeof(int));
@@ -33,7 +59,32 @@ void escribir_id_a_indice(int id, int new_idx){
     archivo.close();
 }
 
-
+/**
+ * Retorna el indice de la primera ocurrencia de un
+ * elemento con hash h. En caso de no existir 
+ * retorna -1
+ * */
+int recuperar_hash(int h){
+    int idx;
+    ifstream archivo ("binaries/hash.bin", ios::in|ios::binary|ios::ate);
+    archivo.seekg (sizeof(int) * h, ios::beg);
+    archivo.read((char*) &idx,sizeof(int));
+    archivo.close();
+    return idx;
+}
+/**
+ * Escribe un nuevo indice a la posicion 
+ * de hash h
+ * @input 
+ * new_index : el nuevo indice a escribir
+ * h : el hash del nuevo indice
+ * */
+void escribir_hash(int h, int new_index){
+    ofstream archivo ("binaries/hash.bin", ios::in|ios::binary|ios::ate);
+    archivo.seekp(sizeof(int) * h);
+    archivo.write((char*) &new_index,sizeof(int));
+    archivo.close();
+}
 
 mascota recuperar_indice(int num_item){
     mascota m;
@@ -44,14 +95,15 @@ mascota recuperar_indice(int num_item){
     return m;
 }
 void imprimir_estructura(mascota *m){
-    cout<<m->nombre  <<' ';
-    cout<<m->tipo    <<' ';
-    cout<<m->edad    <<' ';
-    cout<<m->raza    <<' ';
-    cout<<m->estatura<<' ';
-    cout<<m->peso    <<' ';
-    cout<<m->sexo    <<' ';
-    cout<<m->id      <<'\n';
+    cout<<"nombre: "<<m->nombre  <<'\n';
+    cout<<"tipo: "<<m->tipo    <<'\n';
+    cout<<"edad: "<<m->edad    <<'\n';
+    cout<<"raza: "<<m->raza    <<'\n';
+    cout<<"estatura: "<<m->estatura<<'\n';
+    cout<<"peso: "<<m->peso    <<'\n';
+    cout<<"sexo: "<<m->sexo    <<'\n';
+    cout<<"id: "<<m->id      <<'\n';
+
 }
 void escribir_al_final (mascota *m){
     FILE *archivo ;
@@ -67,23 +119,81 @@ void escribir_mascota_a_indice(int idx, mascota *m){
     archivo.write((char*) m,sizeof(mascota));
     archivo.close();
 }
+/** borra un indice del arreglo de mascotas
+ * automaticamente actualiza el id y el hash
+ * */
 void borrar_indice(int idx){
     mascota ultima = recuperar_indice(tamano-1), mitad = recuperar_indice(idx);
+    mascota siguiente,anterior;
+    //quitamos a mitad de la linked list
+    if(mitad.anterior_con_mismo_hash==-1){
+        escribir_hash(hashear_nombre(mitad.nombre),mitad.siguiente_con_mismo_hash);
+    }else{
+        anterior = recuperar_indice(mitad.anterior_con_mismo_hash);
+        anterior.siguiente_con_mismo_hash=mitad.siguiente_con_mismo_hash;
+        escribir_mascota_a_indice(mitad.anterior_con_mismo_hash, &anterior);
+    }
+    if (mitad.siguiente_con_mismo_hash!=-1){
+        siguiente = recuperar_indice(mitad.siguiente_con_mismo_hash);
+        siguiente.anterior_con_mismo_hash=mitad.anterior_con_mismo_hash;
+        escribir_mascota_a_indice(mitad.siguiente_con_mismo_hash, &siguiente);
+    }
+    //actualizamos la linked list para la ultima mascota
+    if (ultima.anterior_con_mismo_hash==-1){
+        escribir_hash(hashear_nombre(ultima.nombre),idx);
+    }else{
+        anterior = recuperar_indice(ultima.anterior_con_mismo_hash);
+        anterior.siguiente_con_mismo_hash = idx;
+        escribir_mascota_a_indice(ultima.anterior_con_mismo_hash,&anterior);
+    }
+    if (ultima.siguiente_con_mismo_hash){
+        siguiente = recuperar_indice(ultima.siguiente_con_mismo_hash);
+        siguiente.anterior_con_mismo_hash=idx;
+        escribir_mascota_a_indice(ultima.siguiente_con_mismo_hash,&siguiente);
+    }
     escribir_id_a_indice(mitad.id, -1);
     escribir_mascota_a_indice(idx, &ultima);
     escribir_id_a_indice(ultima.id, idx);
     tamano--;
 }
-
+/** 
+ * Anade una mascota al final de la lista
+ * de mascotas. Otorga el id y la informacion
+ * del hash automaticamente
+ * */
 void anadir_mascota(mascota *m){
     m->id = tamano_id;
     escribir_al_final_id(tamano);
+    int current_hash = hashear_nombre(m->nombre);
+    if (recuperar_hash(current_hash) == -1){
+        escribir_hash(current_hash,tamano);
+        m->anterior_con_mismo_hash=-1;
+        m->siguiente_con_mismo_hash=-1;
+    }else{
+        int index=recuperar_hash(current_hash);
+        mascota ultima  = recuperar_indice( index);
+        while (ultima.siguiente_con_mismo_hash!=-1){
+            index = ultima.siguiente_con_mismo_hash;
+            ultima = recuperar_indice( index);
+        }
+        ultima.siguiente_con_mismo_hash=tamano;
+        escribir_mascota_a_indice(index, &ultima);
+        m->anterior_con_mismo_hash=index;
+    }
     if (tamano < tamano_real){
         escribir_mascota_a_indice(tamano++,m);
         return;
     }
     escribir_al_final(m);
 }
+
+void anadir_reg();
+void ver_reg();
+void borrar_reg();
+void buscar_reg();
+
+void menu();
+
 
 int main (){
     mascota m;
@@ -94,23 +204,93 @@ int main (){
     tamano_id = archivo_ids.tellg() / sizeof(int);
     archivo_ids.close();
 
-    
-    /*m = recuperar_indice(3);
-    borrar_indice(3);
-    anadir_mascota(&m);
-    anadir_mascota(&m);
-    anadir_mascota(&m);*/
+    menu();
+}
 
-    for (int i=10000002 -10;i<=10000002;++i){
-        int idx_from_id = recuperar_id(i);
-        cout<<i<<' '<<idx_from_id<<"----------";
-        mascota foo = recuperar_indice(idx_from_id);
-        imprimir_estructura(&foo);
+
+
+void anadir_reg(){
+    mascota m;
+    cout<<("\n\tInserte los datos a añadir: \n");
+    cout<<("\nInserte el nombre: ");
+    cin>>m.nombre;
+    cout<<("\nInserte el tipo: ");
+    cin>>m.tipo;
+    cout<<("\nInserte la edad: ");
+    cin>>m.edad;
+    cout<<("\nInserte la raza: ");
+    cin>>m.raza;
+    cout<<("\nInserte la estatura: ");
+    cin>>m.estatura;
+    cout<<("\nInserte el peso: ");
+    cin>>m.peso;
+    cout<<("\nInserte el sexo: ");
+    cin>>m.sexo;
+    anadir_mascota(&m);
+    system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
+    menu();
+}
+void ver_reg(){
+    cout<<"\nExisten "<<tamano<<" registros en la base de datos\nEscriba el id a buscar: ";
+    int id;
+    cin>>id;
+    int idx =  recuperar_id(id);
+    if (idx == -1){
+        cout<<("\nid no encontrado\n");
+        system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
+        menu();
+        return;
     }
-    cout<<tamano<<endl;
-    /*for (int i=0;i<10;++i){
-        m = recuperar_indice(i);
-        cout <<i<<')';
-        imprimir_estructura(&m);
-    }*/
+    mascota m = recuperar_indice(idx);
+    imprimir_estructura(&m);
+    system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
+    menu();
+}
+void borrar_reg(){
+    menu();
+    return;
+}
+void buscar_reg(){
+    menu();
+    return;
+}
+void menu(){
+    //system("clear");
+	char opcion;
+    cout<<("\n\n\n\tMENU");
+    cout<<("\n\tIngresar registro\t\tIngrese (1)\n\n");
+    cout<<("\tVer registro\t\t\tIngrese (2)\n\n");
+    cout<<("\tBorrar registro\t\t\tIngrese (3)\n\n");
+    cout<<("\tBuscar Registro\t\t\tIngrese (4)\n\n");
+    cout<<("\tSalir\t\t\t\tIngrese (5)\n\n\t");
+    cin>>opcion;
+	switch(opcion){
+		case '1':{
+			anadir_reg();
+			break;
+		}
+		case '2':{
+			ver_reg();
+			break;
+		}
+		case '3':{
+			borrar_reg();
+			break;
+		}
+		case '4':{
+			buscar_reg();
+			break;
+		}
+		case '5':{
+			cout<<("\n\n\t----HA SALIDO DEL PROGRAMA----)\n\n\t");
+			break;
+		}
+		
+		default:{
+			cout<<"\n\n\n\t"<<opcion<<"NO ES UNA OPCION\n";
+			menu();
+			break;	
+		}
+	}
+    
 }

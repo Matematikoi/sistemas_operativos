@@ -64,11 +64,10 @@ mascota * leer_archivo(){
             cur.siguiente_con_mismo_hash=-1;
         }else{
             int index=hash_nombres[current_hash];
-            while (arr[index].siguiente_con_mismo_hash!=-1){
-                index = arr[index].siguiente_con_mismo_hash;
-            }
-            arr[index].siguiente_con_mismo_hash = tamano_arr_mascota;
-            cur.anterior_con_mismo_hash=index;
+            arr[index].anterior_con_mismo_hash=tamano_arr_mascota;
+            hash_nombres[current_hash] = tamano_arr_mascota;
+            cur.siguiente_con_mismo_hash = index;
+            cur.anterior_con_mismo_hash = -1;
         }
 
         cur.id = tamano_arr_mascota;
@@ -142,14 +141,36 @@ int guardar_hash(void *arr){
     }
     return 1;
 }
-
+int guardar_tamano(void *arr){
+    FILE *apFile;
+    int r;
+    apFile = fopen("binaries/tamano.bin","w+");
+    if(apFile == NULL){
+        perror("error fopen:");
+        exit(-1);
+    }
+    r = fwrite(arr, sizeof(int),1, apFile);
+    if(r <= 0){
+        perror("error fwrite");
+        exit(-1);
+    }
+    r = fclose(apFile);
+    if(r < 0){
+        perror("error fclose: ");
+        exit(-1);
+    }
+    return 1;
+}
 
 int main (){
+    //ios_base::sync_with_stdio(0);
+    //cin.tie(0);
     memset(hash_nombres,-1, sizeof(hash_nombres));
     mascota *arr_mascotas = leer_archivo(), *lectura;
     cerr<<"tamano de arreglo: "<<tamano_arr_mascota<<endl;
     guardar_estructura(arr_mascotas);
     guardar_ids(&ids);
     guardar_hash(&hash_nombres);
+    guardar_tamano(&tamano_arr_mascota);
 
 }

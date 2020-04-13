@@ -3,7 +3,34 @@ using namespace std;
 const int MOD = 5003;
 int tamano, tamano_real, tamano_id;
 
-
+int guardar_tamano(void *arr){
+    FILE *apFile;
+    int r;
+    apFile = fopen("binaries/tamano.bin","w+");
+    if(apFile == NULL){
+        perror("error fopen:");
+        exit(-1);
+    }
+    r = fwrite(arr, sizeof(int),1, apFile);
+    if(r <= 0){
+        perror("error fwrite");
+        exit(-1);
+    }
+    r = fclose(apFile);
+    if(r < 0){
+        perror("error fclose: ");
+        exit(-1);
+    }
+    return 1;
+}
+int leer_tamano (){
+    int i;
+    ifstream archivo ("binaries/tamano.bin", ios::in|ios::binary|ios::ate);
+    archivo.seekg (0, ios::beg);
+    archivo.read((char*) &i,sizeof(int));
+    archivo.close();
+    return i;
+}
 struct mascota{
     char nombre[32];
     char tipo[32];
@@ -171,14 +198,12 @@ void anadir_mascota(mascota *m){
         m->siguiente_con_mismo_hash=-1;
     }else{
         int index=recuperar_hash(current_hash);
-        mascota ultima  = recuperar_indice( index);
-        while (ultima.siguiente_con_mismo_hash!=-1){
-            index = ultima.siguiente_con_mismo_hash;
-            ultima = recuperar_indice( index);
-        }
-        ultima.siguiente_con_mismo_hash=tamano;
-        escribir_mascota_a_indice(index, &ultima);
-        m->anterior_con_mismo_hash=index;
+        mascota primera  = recuperar_indice( index);
+        primera.anterior_con_mismo_hash=tamano;
+        escribir_hash(current_hash,tamano);
+        escribir_mascota_a_indice(index, &primera);
+        m->siguiente_con_mismo_hash=index;
+        m->anterior_con_mismo_hash=-1;
     }
     if (tamano < tamano_real){
         escribir_mascota_a_indice(tamano++,m);
@@ -191,14 +216,15 @@ void anadir_reg();
 void ver_reg();
 void borrar_reg();
 void buscar_reg();
-
 void menu();
-
+int procesar_nombre (char* original, char* resultado);
+bool comparar_nombres (char *s1, char *s2);
 
 int main (){
     mascota m;
     ifstream archivo_mascotas ("binaries/mascotas_array.bin", ios::in|ios::binary|ios::ate);
-    tamano_real = tamano = archivo_mascotas.tellg() / sizeof(mascota);
+    tamano_real =  archivo_mascotas.tellg() / sizeof(mascota);
+    tamano= leer_tamano();
     archivo_mascotas.close();
     ifstream archivo_ids("binaries/ids.bin", ios::in|ios::binary|ios::ate);
     tamano_id = archivo_ids.tellg() / sizeof(int);
@@ -243,18 +269,64 @@ void ver_reg(){
     }
     mascota m = recuperar_indice(idx);
     imprimir_estructura(&m);
+    cout<<"\n\n¿Desea abrir la historia clinica? (S/N): ";
+    char c;
+    cin>>c;
+    if (c=='S'){
+        char comando[256];
+        sprintf( comando,"date -Iminutes >> historia_clinica/%d.txt",id);
+        system (comando);
+        sprintf(comando,"xdg-open historia_clinica/%d.txt &",id);
+        system (comando);
+    }
     system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
     menu();
 }
 void borrar_reg(){
+    cout<<"\nExisten "<<tamano<<" registros en la base de datos\nEscriba el id a borrar: ";
+    int id;
+    cin>>id;
+    int idx =  recuperar_id(id);
+    if (idx == -1){
+        cout<<("\nid no encontrado\n");
+        system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
+        menu();
+        return;
+    }
+    borrar_indice(idx);
+    system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
     menu();
     return;
 }
 void buscar_reg(){
+    char c[32];
+    cout<<"Ingrese el nombre a buscar : ";
+    cin>>c;
+    int current_hash = hashear_nombre(c);
+    if (recuperar_hash(current_hash) == -1){
+        cout << "Nombre no encontrado...\n";
+    }else{
+        int index=recuperar_hash(current_hash), cnt = 1;
+        mascota ultima  = recuperar_indice( index);
+        if (comparar_nombres(ultima.nombre,c)){
+            cout<<"\n Mascota "<<cnt++<<"\n";
+            imprimir_estructura(&ultima);
+        }
+        while (ultima.siguiente_con_mismo_hash!=-1){
+            index = ultima.siguiente_con_mismo_hash;
+            ultima = recuperar_indice( index);
+            if (comparar_nombres(ultima.nombre,c)){
+                cout<<"\n Mascota "<<cnt++<<"\n";
+                imprimir_estructura(&ultima);
+            }
+        }
+    }
+    system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
     menu();
     return;
 }
 void menu(){
+    guardar_tamano(&tamano);
     //system("clear");
 	char opcion;
     cout<<("\n\n\n\tMENU");
@@ -294,3 +366,29 @@ void menu(){
 	}
     
 }
+int procesar_nombre (char* original, char* resultado){
+    int tam =0;
+    for (int i=0;original[i];++i){
+        if('A'<=original[i] && original[i]<'Z'){
+            resultado[tam++]=original[i]-'A'+'a';
+        }else if('a'<=original[i] && original[i]<'z'){
+            resultado[tam++]=original[i];
+        }
+    }
+    return tam;
+}
+bool comparar_nombres (char *s1, char *s2){
+    char s1_procesado[32],s2_procesado[32];
+    int tam1 = procesar_nombre(s1,s1_procesado);
+    int tam2 = procesar_nombre(s2,s2_procesado);
+    if (tam1 != tam2){
+        return false;
+    }
+    for (int i=0;i<tam1;++i){
+        if(s1_procesado[i]!=s2_procesado[i]){
+            return false;
+        }
+    }
+    return true;
+}
+

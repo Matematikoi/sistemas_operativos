@@ -22,5 +22,3 @@ golozanop@unal.edu.co
 ndcepedar@unal.edu.co
 
 herodriguez@unal.edu.co
-
-

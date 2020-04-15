@@ -263,21 +263,20 @@ void ver_reg(){
     int idx =  recuperar_id(id);
     if (idx == -1){
         cout<<("\nid no encontrado\n");
-        system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
-        menu();
-        return;
-    }
-    mascota m = recuperar_indice(idx);
-    imprimir_estructura(&m);
-    cout<<"\n\n¿Desea abrir la historia clinica? (S/N): ";
-    char c;
-    cin>>c;
-    if (c=='S'){
-        char comando[256];
-        sprintf( comando,"date -Iminutes >> historia_clinica/%d.txt",id);
-        system (comando);
-        sprintf(comando,"xdg-open historia_clinica/%d.txt &",id);
-        system (comando);
+        
+    }else{
+        mascota m = recuperar_indice(idx);
+        imprimir_estructura(&m);
+        cout<<"\n\n¿Desea abrir la historia clinica? (S/N): ";
+        char c;
+        cin>>c;
+        if (c=='S'){
+            char comando[256];
+            sprintf( comando,"date -Iminutes >> historia_clinica/%d.txt",id);
+            system (comando);
+            sprintf(comando,"xdg-open historia_clinica/%d.txt &",id);
+            system (comando);
+        }
     }
     system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
     menu();

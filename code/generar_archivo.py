@@ -1,12 +1,8 @@
 from random import randint
 from random import random
 from random import choice
-def procesar_nombre(s):
-    x = s.replace('\n','')
-    for mal, bien in zip ('áéíóúäëïöüÁÉÍÓÚÄËÏÖÜ ','aeiouaeiouAEIOUAEIOU_'):
-        x = x.replace(mal,bien)
-    return x.encode('ascii','ignore').decode()
-def escoger():
+
+def escogerAleatoreamente():
     return '{} {} {} {} {} {} {}'.format(
         choice(nombres),
         choice(tipos),
@@ -18,7 +14,7 @@ def escoger():
     )
 archivo, nombres,n = open('input/nombres_mascotas.txt'),[],1717
 for i in range(n):
-    s = procesar_nombre(archivo.readline())
+    s = archivo.readline()
     if len(s) > 0 : 
         nombres.append(s)
 
@@ -29,4 +25,4 @@ estaturas = [ i for i in range(150)]
 pesos = [ random()*50 for i in range(1000)]
 sexo = ['H','M']
 for i in range(10**7):
-    print(escoger())
+    print(escogerAleatoreamente())

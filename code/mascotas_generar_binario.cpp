@@ -1,41 +1,17 @@
 #include <bits/stdc++.h>
+#include "mascotas.h"
 using namespace std;
 const int MAX = 10000007;
 const int MOD = 5003;
-int tamano_arr_mascota;
-int ids[MAX];
-int hash_nombres[MOD];
+int TAMANO_ARR_MASCOTAS;
+int IDS[MAX];
+int HASH_NOMBRES[MOD];
 
-struct mascota{
-    char nombre[32];
-    char tipo[32];
-    int edad;
-    char raza[16];
-    int estatura;
-    float peso;
-    char sexo;
-    int id;
-    int siguiente_con_mismo_hash;
-    int anterior_con_mismo_hash;
-};
-int hashear_nombre(char *str){
-    int acu=0, base = 26, base_acumulada = 1,letra;
-    for( int i = 0 ; str[i]; ++ i ){
-        if (str[i]>='A' && str[i] <='Z'){
-            //caso mayusculas
-            letra = str[i]-'A';
-        }else if(str[i]>='a' && str[i] <='z') {
-            //caso minusculas
-            letra = str[i] -'a';
-        }else{
-            //caso no letra
-            continue;
-        }
-        acu= (acu +((letra*base_acumulada)%MOD))%MOD;
-        base_acumulada=(base*base_acumulada)%MOD;
-    }
-    return acu;
-}
+
+
+
+
+
 /**
  * Lee de std input mascotas en formato de texto y devuelve un vector con mascotas 
  * como estructura de datos. 
@@ -45,34 +21,34 @@ int hashear_nombre(char *str){
  * */
 mascota * leer_archivo(){
     static mascota arr[MAX];
-    int current_hash;
-    mascota cur;
-    while (cin>>cur.nombre){
-        cin>>cur.tipo;
-        cin>>cur.edad;
-        cin>>cur.raza;
-        cin>>cur.estatura;
-        cin>>cur.peso;
-        cin>> cur.sexo;
+    int hash_actual;
+    mascota mascota_actual;
+    while (cin>>mascota_actual.nombre){
+        cin>>mascota_actual.tipo;
+        cin>>mascota_actual.edad;
+        cin>>mascota_actual.raza;
+        cin>>mascota_actual.estatura;
+        cin>>mascota_actual.peso;
+        cin>> mascota_actual.sexo;
         //Ajustar el hash de los nombres de las mascotas
-        current_hash = hashear_nombre(cur.nombre);
+        hash_actual = hashear_nombre(mascota_actual.nombre, MOD);
         //Cuando el hash no existe se crea con valor de indice actual
         // en otro caso se busca el ultimo y se añade como linked list
-        if (hash_nombres[current_hash]==-1){
-            hash_nombres[current_hash]= tamano_arr_mascota;
-            cur.anterior_con_mismo_hash=-1;
-            cur.siguiente_con_mismo_hash=-1;
+        if (HASH_NOMBRES[hash_actual]==-1){
+            HASH_NOMBRES[hash_actual]= TAMANO_ARR_MASCOTAS;
+            mascota_actual.anterior_con_mismo_hash=-1;
+            mascota_actual.siguiente_con_mismo_hash=-1;
         }else{
-            int index=hash_nombres[current_hash];
-            arr[index].anterior_con_mismo_hash=tamano_arr_mascota;
-            hash_nombres[current_hash] = tamano_arr_mascota;
-            cur.siguiente_con_mismo_hash = index;
-            cur.anterior_con_mismo_hash = -1;
+            int index=HASH_NOMBRES[hash_actual];
+            arr[index].anterior_con_mismo_hash=TAMANO_ARR_MASCOTAS;
+            HASH_NOMBRES[hash_actual] = TAMANO_ARR_MASCOTAS;
+            mascota_actual.siguiente_con_mismo_hash = index;
+            mascota_actual.anterior_con_mismo_hash = -1;
         }
 
-        cur.id = tamano_arr_mascota;
-        ids[tamano_arr_mascota] = tamano_arr_mascota;
-        arr[tamano_arr_mascota++]=cur;
+        mascota_actual.id = TAMANO_ARR_MASCOTAS;
+        IDS[TAMANO_ARR_MASCOTAS] = TAMANO_ARR_MASCOTAS;
+        arr[TAMANO_ARR_MASCOTAS++]=mascota_actual;
     }
     return arr;
 }
@@ -80,12 +56,12 @@ mascota * leer_archivo(){
 int guardar_estructura(void *arr){
     FILE *apFile;
     int r;
-    apFile = fopen("binaries/mascotas_array.bin","w+");
+    apFile = fopen(ARCHIVO_MASCOTAS,"w+");
     if(apFile == NULL){
         perror("error fopen:");
         exit(-1);
     }
-    r = fwrite(arr, sizeof(mascota),tamano_arr_mascota, apFile);
+    r = fwrite(arr, sizeof(mascota),TAMANO_ARR_MASCOTAS, apFile);
     if(r <= 0){
         perror("error fwrite");
         exit(-1);
@@ -97,15 +73,15 @@ int guardar_estructura(void *arr){
     }
     return 1;
 }
-int guardar_ids(void *arr){
+int guardar_IDS(void *arr){
     FILE *apFile;
     int r;
-    apFile = fopen("binaries/ids.bin","w+");
+    apFile = fopen(ARCHIVO_IDS,"w+");
     if(apFile == NULL){
         perror("error fopen:");
         exit(-1);
     }
-    r = fwrite(arr, sizeof(int),tamano_arr_mascota, apFile);
+    r = fwrite(arr, sizeof(int),TAMANO_ARR_MASCOTAS, apFile);
     if(r <= 0){
         perror("error fwrite");
         exit(-1);
@@ -124,7 +100,7 @@ int guardar_ids(void *arr){
 int guardar_hash(void *arr){
     FILE *apFile;
     int r;
-    apFile = fopen("binaries/hash.bin","w+");
+    apFile = fopen(ARCHIVO_HASH,"w+");
     if(apFile == NULL){
         perror("error fopen:");
         exit(-1);
@@ -144,7 +120,7 @@ int guardar_hash(void *arr){
 int guardar_tamano(void *arr){
     FILE *apFile;
     int r;
-    apFile = fopen("binaries/tamano.bin","w+");
+    apFile = fopen(ARCHIVO_TAMANO,"w+");
     if(apFile == NULL){
         perror("error fopen:");
         exit(-1);
@@ -162,15 +138,17 @@ int guardar_tamano(void *arr){
     return 1;
 }
 
+
+
 int main (){
-    //ios_base::sync_with_stdio(0);
-    //cin.tie(0);
-    memset(hash_nombres,-1, sizeof(hash_nombres));
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    memset(HASH_NOMBRES,-1, sizeof(HASH_NOMBRES));
     mascota *arr_mascotas = leer_archivo(), *lectura;
-    cerr<<"tamano de arreglo: "<<tamano_arr_mascota<<endl;
+    cerr<<"tamano de arreglo: "<<TAMANO_ARR_MASCOTAS<<endl;
     guardar_estructura(arr_mascotas);
-    guardar_ids(&ids);
-    guardar_hash(&hash_nombres);
-    guardar_tamano(&tamano_arr_mascota);
+    guardar_IDS(&IDS);
+    guardar_hash(&HASH_NOMBRES);
+    guardar_tamano(&TAMANO_ARR_MASCOTAS);
 
 }

@@ -5,6 +5,7 @@ const char * ARCHIVO_MASCOTAS="binaries/mascotas_array.bin";
 const char * ARCHIVO_IDS="binaries/ids.bin";
 const char * ARCHIVO_HASH="binaries/hash.bin";
 
+
 int hashear_nombre(char *str, int mod){
     int acu=0, base = 26, base_acumulada = 1,letra;
     for( int i = 0 ; str[i]; ++ i ){
@@ -22,4 +23,25 @@ int hashear_nombre(char *str, int mod){
         base_acumulada=(base*base_acumulada)%mod;
     }
     return acu;
+}
+
+int guardar_en_archivo(void *arr,const char * nombre, int tamano, int n ){
+    FILE *apFile;
+    int r;
+    apFile = fopen(nombre,"w+");
+    if(apFile == NULL){
+        perror("error fopen:");
+        exit(-1);
+    }
+    r = fwrite(arr, tamano,n, apFile);
+    if(r <= 0){
+        perror("error fwrite");
+        exit(-1);
+    }
+    r = fclose(apFile);
+    if(r < 0){
+        perror("error fclose: ");
+        exit(-1);
+    }
+    return 1;
 }

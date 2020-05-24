@@ -1,9 +1,11 @@
-#include <string>
+#ifndef MASCOTA
+#define MASCOTA
+
 extern const char * ARCHIVO_TAMANO;
 extern const char * ARCHIVO_MASCOTAS;
 extern const char * ARCHIVO_IDS;
 extern const char * ARCHIVO_HASH;
-
+#define MOD 5003
 
 struct mascota{
     char nombre[32];
@@ -20,3 +22,7 @@ struct mascota{
 
 
 int hashear_nombre(char *str, int mod);
+
+int guardar_en_archivo(void *arr,const char * nombre, int tamano , int n );
+
+#endif

@@ -2,7 +2,6 @@
 #include "mascotas.h"
 using namespace std;
 const int MAX = 10000007;
-const int MOD = 5003;
 int TAMANO_ARR_MASCOTAS;
 int IDS[MAX];
 int HASH_NOMBRES[MOD];

@@ -1,12 +1,12 @@
 #include <bits/stdc++.h>
-
+#include "mascotas.h"
 const char * ARCHIVO_TAMANO="binaries/tamano.bin";
 const char * ARCHIVO_MASCOTAS="binaries/mascotas_array.bin";
 const char * ARCHIVO_IDS="binaries/ids.bin";
 const char * ARCHIVO_HASH="binaries/hash.bin";
 
 
-int hashear_nombre(char *str, int mod){
+int hashear_nombre(char *str ){
     int acu=0, base = 26, base_acumulada = 1,letra;
     for( int i = 0 ; str[i]; ++ i ){
         if (str[i]>='A' && str[i] <='Z'){
@@ -19,8 +19,8 @@ int hashear_nombre(char *str, int mod){
             //caso no letra
             continue;
         }
-        acu= (acu +((letra*base_acumulada)%mod))%mod;
-        base_acumulada=(base*base_acumulada)%mod;
+        acu= (acu +((letra*base_acumulada)% MOD ))% MOD ;
+        base_acumulada=(base*base_acumulada) % MOD ;
     }
     return acu;
 }

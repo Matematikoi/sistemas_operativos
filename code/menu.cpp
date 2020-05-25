@@ -122,7 +122,7 @@ void buscar_reg(){
     char c[32];
     cout<<"Ingrese el nombre a buscar : ";
     cin>>c;
-    int current_hash = hashear_nombre(c, MOD);
+    int current_hash = hashear_nombre(c);
     if (recuperar_hash(current_hash) == -1){
         cout << "Nombre no encontrado...\n";
     }else{

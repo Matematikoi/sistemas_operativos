@@ -110,7 +110,7 @@ void borrar_indice(int idx){
     mascota siguiente,anterior;
     //quitamos a mitad de la linked list
     if(mitad.anterior_con_mismo_hash==-1){
-        escribir_hash(hashear_nombre(mitad.nombre, MOD),mitad.siguiente_con_mismo_hash);
+        escribir_hash(hashear_nombre(mitad.nombre),mitad.siguiente_con_mismo_hash);
     }else{
         anterior = recuperar_indice(mitad.anterior_con_mismo_hash);
         anterior.siguiente_con_mismo_hash=mitad.siguiente_con_mismo_hash;
@@ -123,7 +123,7 @@ void borrar_indice(int idx){
     }
     //actualizamos la linked list para la ultima mascota
     if (ultima.anterior_con_mismo_hash==-1){
-        escribir_hash(hashear_nombre(ultima.nombre,MOD),idx);
+        escribir_hash(hashear_nombre(ultima.nombre),idx);
     }else{
         anterior = recuperar_indice(ultima.anterior_con_mismo_hash);
         anterior.siguiente_con_mismo_hash = idx;
@@ -147,7 +147,7 @@ void borrar_indice(int idx){
 void anadir_mascota(mascota *m){
     m->id = tamano_id;
     escribir_al_final_id(tamano);
-    int current_hash = hashear_nombre(m->nombre, MOD);
+    int current_hash = hashear_nombre(m->nombre);
     if (recuperar_hash(current_hash) == -1){
         escribir_hash(current_hash,tamano);
         m->anterior_con_mismo_hash=-1;

@@ -21,7 +21,7 @@ struct mascota{
 };
 
 
-int hashear_nombre(char *str, int mod);
+int hashear_nombre(char *str);
 
 int guardar_en_archivo(void *arr,const char * nombre, int tamano , int n );
 

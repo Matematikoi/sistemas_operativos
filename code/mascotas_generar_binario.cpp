@@ -4,7 +4,7 @@ using namespace std;
 const int MAX = 10000007;
 int TAMANO_ARR_MASCOTAS;
 int IDS[MAX];
-int HASH_NOMBRES[MOD];
+int *HASH_NOMBRES;
 
 
 
@@ -30,7 +30,7 @@ mascota * leer_archivo(){
         cin>>mascota_actual.peso;
         cin>> mascota_actual.sexo;
         //Ajustar el hash de los nombres de las mascotas
-        hash_actual = hashear_nombre(mascota_actual.nombre, MOD);
+        hash_actual = hashear_nombre(mascota_actual.nombre);
         //Cuando el hash no existe se crea con valor de indice actual
         // en otro caso se busca el ultimo y se añade como linked list
         if (HASH_NOMBRES[hash_actual]==-1){
@@ -104,7 +104,7 @@ int guardar_hash(void *arr){
         perror("error fopen:");
         exit(-1);
     }
-    r = fwrite(arr, sizeof(int),MOD, apFile);
+    r = fwrite(arr, sizeof(int), MOD , apFile);
     if(r <= 0){
         perror("error fwrite");
         exit(-1);
@@ -142,12 +142,13 @@ int guardar_tamano(void *arr){
 int main (){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    memset(HASH_NOMBRES,-1, sizeof(HASH_NOMBRES));
+    HASH_NOMBRES = (int*) malloc(sizeof(int) * MOD);
+    memset(HASH_NOMBRES,-1, sizeof(int) * MOD);
     mascota *arr_mascotas = leer_archivo(), *lectura;
     cerr<<"tamano de arreglo: "<<TAMANO_ARR_MASCOTAS<<endl;
     guardar_estructura(arr_mascotas);
     guardar_IDS(&IDS);
-    guardar_hash(&HASH_NOMBRES);
+    guardar_hash(HASH_NOMBRES);
     guardar_tamano(&TAMANO_ARR_MASCOTAS);
 
 }

@@ -16,7 +16,7 @@ bool comparar_nombres (char *s1, char *s2);
 
 
 void menu(){
-    guardar_tamano(&tamano);
+    guardar_tamano(&TAMANO_ACTUAL);
     //system("clear");
 	char opcion;
     cout<<("\n\n\n\tMENU");
@@ -57,28 +57,28 @@ void menu(){
     
 }
 void anadir_reg(){
-    mascota m;
+    Mascota mascota;
     cout<<("\n\tInserte los datos a añadir: \n");
     cout<<("\nInserte el nombre: ");
-    cin>>m.nombre;
+    cin>>mascota.nombre;
     cout<<("\nInserte el tipo: ");
-    cin>>m.tipo;
+    cin>>mascota.tipo;
     cout<<("\nInserte la edad: ");
-    cin>>m.edad;
+    cin>>mascota.edad;
     cout<<("\nInserte la raza: ");
-    cin>>m.raza;
+    cin>>mascota.raza;
     cout<<("\nInserte la estatura: ");
-    cin>>m.estatura;
+    cin>>mascota.estatura;
     cout<<("\nInserte el peso: ");
-    cin>>m.peso;
+    cin>>mascota.peso;
     cout<<("\nInserte el sexo: ");
-    cin>>m.sexo;
-    anadir_mascota(&m);
+    cin>>mascota.sexo;
+    anadir_mascota(&mascota);
     system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
     menu();
 }
 void ver_reg(){
-    cout<<"\nExisten "<<tamano<<" registros en la base de datos\nEscriba el id a buscar: ";
+    cout<<"\nExisten "<<TAMANO_ACTUAL<<" registros en la base de datos\nEscriba el id a buscar: ";
     int id;
     cin>>id;
     int idx =  recuperar_id(id);
@@ -86,7 +86,7 @@ void ver_reg(){
         cout<<("\nid no encontrado\n");
         
     }else{
-        mascota m = recuperar_indice(idx);
+        Mascota m = recuperar_indice(idx);
         imprimir_estructura(&m);
         cout<<"\n\n¿Desea abrir la historia clinica? (S/N): ";
         char c;
@@ -103,7 +103,7 @@ void ver_reg(){
     menu();
 }
 void borrar_reg(){
-    cout<<"\nExisten "<<tamano<<" registros en la base de datos\nEscriba el id a borrar: ";
+    cout<<"\nExisten "<<TAMANO_ACTUAL<<" registros en la base de datos\nEscriba el id a borrar: ";
     int id;
     cin>>id;
     int idx =  recuperar_id(id);
@@ -127,7 +127,7 @@ void buscar_reg(){
         cout << "Nombre no encontrado...\n";
     }else{
         int index=recuperar_hash(current_hash), cnt = 1;
-        mascota ultima  = recuperar_indice( index);
+        Mascota ultima  = recuperar_indice( index);
         if (comparar_nombres(ultima.nombre,c)){
             cout<<"\n Mascota "<<cnt++<<"\n";
             imprimir_estructura(&ultima);
@@ -157,13 +157,8 @@ int procesar_nombre (char* original, char* resultado){
     }
     return tam;
 }
-bool comparar_nombres (char *s1, char *s2){void anadir_reg();
-void ver_reg();
-void borrar_reg();
-void buscar_reg();
-void menu();
-int procesar_nombre (char* original, char* resultado);
-bool comparar_nombres (char *s1, char *s2);
+
+bool comparar_nombres (char *s1, char *s2){
     char s1_procesado[32],s2_procesado[32];
     int tam1 = procesar_nombre(s1,s1_procesado);
     int tam2 = procesar_nombre(s2,s2_procesado);

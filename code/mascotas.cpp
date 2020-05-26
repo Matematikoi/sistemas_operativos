@@ -25,7 +25,7 @@ int hashear_nombre(char *str ){
     return acu;
 }
 
-int guardar_en_archivo(void *arr,const char * nombre, int tamano, int n ){
+int guardar_en_archivo(void *arr,const char * nombre, int TAMANO_ACTUAL, int n ){
     FILE *apFile;
     int r;
     apFile = fopen(nombre,"w+");
@@ -33,7 +33,7 @@ int guardar_en_archivo(void *arr,const char * nombre, int tamano, int n ){
         perror("error fopen:");
         exit(-1);
     }
-    r = fwrite(arr, tamano,n, apFile);
+    r = fwrite(arr, TAMANO_ACTUAL,n, apFile);
     if(r <= 0){
         perror("error fwrite");
         exit(-1);

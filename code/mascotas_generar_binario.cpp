@@ -18,10 +18,10 @@ int *HASH_NOMBRES;
  * Se encarga sobre de ajustar el id, y el hash de los nombres automaticamente. Estos datos
  * no se deben pasar
  * */
-mascota * leer_archivo(){
-    static mascota arr[MAX];
+Mascota * leer_archivo(){
+    static Mascota arr[MAX];
     int hash_actual;
-    mascota mascota_actual;
+    Mascota mascota_actual;
     while (cin>>mascota_actual.nombre){
         cin>>mascota_actual.tipo;
         cin>>mascota_actual.edad;
@@ -60,7 +60,7 @@ int guardar_estructura(void *arr){
         perror("error fopen:");
         exit(-1);
     }
-    r = fwrite(arr, sizeof(mascota),TAMANO_ARR_MASCOTAS, apFile);
+    r = fwrite(arr, sizeof(Mascota),TAMANO_ARR_MASCOTAS, apFile);
     if(r <= 0){
         perror("error fwrite");
         exit(-1);
@@ -144,7 +144,7 @@ int main (){
     cin.tie(0);
     HASH_NOMBRES = (int*) malloc(sizeof(int) * MOD);
     memset(HASH_NOMBRES,-1, sizeof(int) * MOD);
-    mascota *arr_mascotas = leer_archivo(), *lectura;
+    Mascota *arr_mascotas = leer_archivo(), *lectura;
     cerr<<"tamano de arreglo: "<<TAMANO_ARR_MASCOTAS<<endl;
     guardar_estructura(arr_mascotas);
     guardar_IDS(&IDS);

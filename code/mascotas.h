@@ -18,6 +18,7 @@ struct Mascota{
     int id;
     int siguiente_con_mismo_hash;
     int anterior_con_mismo_hash;
+    
 };
 
 

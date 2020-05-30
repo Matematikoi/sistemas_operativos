@@ -19,6 +19,6 @@ Gabriel Octavio Lozano Pinzón
 
 golozanop@unal.edu.co
 
-ndcepedar@unal.edu.co
+Juan Diego Moreno
 
-herodriguez@unal.edu.co
+judmorenomo@unal.edu.co

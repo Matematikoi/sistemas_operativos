@@ -19,14 +19,9 @@ int main (){
     do {
         mensaje = menu();
         respuesta = recibirMensajeCliente(mensaje);
-        if (!respuesta.errorEnOperacion){
-            cout<<"Operación exitosa\n";
-            if (mensaje.tipoDeMensaje==VER_MASCOTA or mensaje.tipoDeMensaje==BUSCAR_MASCOTA){
-                imprimir_estructura(&respuesta.mascota);
-            }
-        }else{
-            cout<<"Error en la operación, revise los parametros\n";
-        }
+        string mensajeCasteado = respuestaToString(respuesta, mensaje);
+        cout<<mensajeCasteado<<endl;
+
 
     }while(respuesta.romperConexion == false);
 

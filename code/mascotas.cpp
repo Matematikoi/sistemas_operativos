@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "mascotas.h"
+#include <sstream>
 const char * ARCHIVO_TAMANO="binaries/tamano.bin";
 const char * ARCHIVO_MASCOTAS="binaries/mascotas_array.bin";
 const char * ARCHIVO_IDS="binaries/ids.bin";

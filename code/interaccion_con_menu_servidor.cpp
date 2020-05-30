@@ -7,6 +7,7 @@ RespuestaServidor eliminarMascota(Mascota mascota);
 RespuestaServidor anadirMascota(Mascota mascota);
 RespuestaServidor verMascota(Mascota mascota);
 RespuestaServidor buscarMascota(Mascota mascota);
+string toString(RespuestaServidor respuesta);
 bool comparar_nombres (char *s1, char *s2);
 int procesar_nombre (char* original, char* resultado);
 
@@ -79,22 +80,56 @@ RespuestaServidor buscarMascota(Mascota mascota){
         int index=recuperar_hash(current_hash), cnt = 1;
         Mascota ultima  = recuperar_indice( index);
         if (comparar_nombres(ultima.nombre,mascota.nombre)){
-            respuesta.errorEnOperacion=false;
-            respuesta.mascota=ultima;
-            return respuesta;
+            respuesta.busqueda.push_back(ultima);
         }
         while (ultima.siguiente_con_mismo_hash!=-1){
             index = ultima.siguiente_con_mismo_hash;
             ultima = recuperar_indice( index);
             if (comparar_nombres(ultima.nombre,mascota.nombre)){
-                respuesta.errorEnOperacion=false;
-                respuesta.mascota=ultima;
-                return respuesta;
+                respuesta.busqueda.push_back(ultima);
             }
         }
     }
+    respuesta.errorEnOperacion=false;
     return respuesta;
 }
+string mascotaToString(Mascota mascota){
+    ostringstream strout;
+    strout<< " Nombre: " << mascota.nombre 
+        << "\n Tipo: " << mascota.tipo 
+        << "\n Edad: " << mascota.edad
+        << "\n ID : "<<mascota.id<<endl;
+    return strout.str();
+}
+
+string respuestaToString(RespuestaServidor respuesta, Mensaje mensaje){
+    if (respuesta.errorEnOperacion) {
+        return "Error, revise los parametros de entrada";
+    }
+    string casteo="";
+    switch (mensaje.tipoDeMensaje){
+    case ELIMINAR_MASCOTA:
+        casteo = "Mascota eliminada\n";
+        break;
+    case VER_MASCOTA:
+        casteo = mascotaToString(respuesta.mascota);
+        break;
+    case ANADIR_MASCOTA:
+        casteo = "Mascota anadida\n";
+        break;
+    case BUSCAR_MASCOTA:
+        for (auto mascota : respuesta.busqueda){
+            casteo+=mascotaToString(mascota);
+        }
+        break;
+    
+    default:
+        break;
+    }
+    return casteo;
+}
+
+
 
 
 int procesar_nombre (char* original, char* resultado){

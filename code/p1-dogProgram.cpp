@@ -5,13 +5,13 @@
 using namespace std;
 
 int main (){
-    mascota m;
+    Mascota m;
     ifstream archivo_mascotas ("binaries/mascotas_array.bin", ios::in|ios::binary|ios::ate);
-    tamano_real =  archivo_mascotas.tellg() / sizeof(mascota);
-    tamano= leer_tamano();
+    TAMANO_REAL =  archivo_mascotas.tellg() / sizeof(Mascota);
+    TAMANO_ACTUAL= leer_tamano();
     archivo_mascotas.close();
     ifstream archivo_ids("binaries/ids.bin", ios::in|ios::binary|ios::ate);
-    tamano_id = archivo_ids.tellg() / sizeof(int);
+    TAMANO_ID = archivo_ids.tellg() / sizeof(int);
     archivo_ids.close();
 
     menu();

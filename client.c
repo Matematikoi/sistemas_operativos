@@ -5,7 +5,7 @@
 #include <string.h>
 
 
-// TO RUN THE CLIENT gcc -o client clienteTaller.c && ./client localhost 5678 "Hola"
+// TO RUN THE CLIENT gcc -o client client.c && ./client localhost 8888 "Hola"
 
 int main(int argc, char ** argv)
 {
@@ -47,14 +47,21 @@ int main(int argc, char ** argv)
 	{
 		fprintf(stderr, "%s: error: cannot connect to host %s\n", argv[0], argv[1]);
 		return -5;
-	}	
-	    
+    }
+
+    char buffer[32];
+
+	len = strlen(argv[3]);	
+	write(sock, argv[3], len);    
+    int r;
+    r = recv(sock, buffer, 32, 0);
+
+    buffer[r] = 0;
+    printf("\nMensaje recibido: %s\n", buffer);
+
+	// This is just to keep the client to exit
 	int ch;
 	ch = getc(stdin);
-	len = strlen(argv[3]);
-	write(sock, &len, sizeof(int));
-	write(sock, argv[3], len);    
-	
 	close(sock);
     
 

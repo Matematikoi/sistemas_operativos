@@ -52,6 +52,74 @@ Mensaje menu(){
     
     return mensaje;
 }
+//Función para verificar un input correcto de un número entero por parte del usuario
+int getAndVerifyInt()
+{
+    int num;
+    cin >> num;
+
+    //El valor debe ser un int válido mayor a cero
+    while (!cin.good() || num <= 0)
+    {
+        cout << "Por favor digite un número entero mayor a cero: ";
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        cin >> num;
+    }
+    return num;
+}
+
+//Función para verificar un input correcto de un número decimal por parte del usuario
+float getAndVerifyFloat()
+{
+    float num;
+    cin >> num;
+
+    //El valor debe ser un float válido mayor a cero
+    while (!cin.good() || num <= 0.0)
+    {
+        cout << "Por favor, digite un número decimal mayor a cero: ";
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        cin >> num;
+    }
+    return num;
+}
+
+//Función para verificar un input correcto de un string por parte del usuario. Recibe un int que define la longitud máxima del string.
+string getAndVerifyString(int strLenght)
+{
+    string str = "";
+    getline(cin, str);
+    cin.clear();
+    //El valor debe ser menor a la longitud dada
+    while (!cin.good() || str.length() > strLenght || str.length() == 0)
+    {
+        cout << "Por favor, digite un nombre de no más de " << strLenght << " carácteres: ";
+        cin.clear();
+        getline(cin, str);
+    }
+    return str;
+}
+
+//Función que decide si un input para el sexo es válido
+bool animalSexInputIsValid(string input)
+{
+    return input == "M"|| input == "H";
+}
+
+//Función que solicita y verifica input del sexo por parte del usuario
+char getAndVerifyAnimalSexInput()
+{
+    string input = " ";
+
+    while (!animalSexInputIsValid(input))
+    {
+        cout << "Por favor ingrese 'F' o 'M' únicamente: " << endl;
+        cin >> input;
+    }
+    return input[0];
+}
 
 Mensaje anadir_reg(){
     Mensaje mensaje;
@@ -59,19 +127,19 @@ Mensaje anadir_reg(){
     Mascota m;
     cout<<("\n\tInserte los datos a añadir: \n");
     cout<<("\nInserte el nombre: ");
-    cin>>m.nombre;
+    strcpy(m.nombre , getAndVerifyString(32).c_str() ) ;
     cout<<("\nInserte el tipo: ");
-    cin>>m.tipo;
+    strcpy(m.tipo , getAndVerifyString(32).c_str() ) ;
     cout<<("\nInserte la edad: ");
-    cin>>m.edad;
+    m.edad = getAndVerifyInt();
     cout<<("\nInserte la raza: ");
-    cin>>m.raza;
+    strcpy(m.raza , getAndVerifyString(16).c_str() ) ;
     cout<<("\nInserte la estatura: ");
-    cin>>m.estatura;
+    m.estatura = getAndVerifyInt();;
     cout<<("\nInserte el peso: ");
-    cin>>m.peso;
+    m.peso = getAndVerifyFloat();
     cout<<("\nInserte el sexo: ");
-    cin>>m.sexo;
+    m.sexo = getAndVerifyAnimalSexInput();
     mensaje.mascota= m;
     mensaje.tipoDeMensaje = ANADIR_MASCOTA;
     return mensaje;    

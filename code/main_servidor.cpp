@@ -173,13 +173,13 @@ void loop()
 int main()
 {
     //alistar algunas variables
-    /*ifstream mascotasArray (ARCHIVO_MASCOTAS, ios::in|ios::binary|ios::ate);
+    ifstream mascotasArray (ARCHIVO_MASCOTAS, ios::in|ios::binary|ios::ate);
     TAMANO_REAL =  mascotasArray.tellg() / sizeof(Mascota);
     TAMANO_ACTUAL= leer_tamano();
     mascotasArray.close();
     ifstream archivoIDs(ARCHIVO_IDS, ios::in|ios::binary|ios::ate);
     TAMANO_ID = archivoIDs.tellg() / sizeof(int);
-    archivoIDs.close();*/
+    archivoIDs.close();
 
     initializeServer();
     loop();

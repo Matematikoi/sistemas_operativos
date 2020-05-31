@@ -161,7 +161,10 @@ void loop()
                     string mensajeCasteado = respuestaToString(respuesta, mensajeRecibido);                    
                     //printf("RESPUESTA %s\n", mensajeCasteado.c_str());
                     char * res;
+                    printf("el error si es del maloc\n");
+                    res = (char*) malloc(mensajeCasteado.size())+1;
                     strcpy(res, mensajeCasteado.c_str());
+                    printf("el error no es del maloc\n");
                     enviarACliente(res, sd);
                     //send(sd, &mensajeCasteado, sizeof(mensajeCasteado), 0);
                 }

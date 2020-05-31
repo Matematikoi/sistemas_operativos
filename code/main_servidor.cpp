@@ -2,11 +2,18 @@
 #include "mascotas.h"
 #include "interactuar_archivos.h"
 #include "interaccion_con_menu_servidor.h"
-#include "interaccion_con_menu_cliente.h"
 using namespace std;
 
-
+Mensaje escucharCliente(){
+    Mensaje mensaje;
+    //funcion que lee la peticion del cliente
+    return mensaje;
+}
+void enviarACliente(string * data){
+    //funcion que envia al cliente un string
+}
 int main (){
+    //alistar algunas variables
     ifstream mascotasArray (ARCHIVO_MASCOTAS, ios::in|ios::binary|ios::ate);
     TAMANO_REAL =  mascotasArray.tellg() / sizeof(Mascota);
     TAMANO_ACTUAL= leer_tamano();
@@ -14,20 +21,15 @@ int main (){
     ifstream archivoIDs(ARCHIVO_IDS, ios::in|ios::binary|ios::ate);
     TAMANO_ID = archivoIDs.tellg() / sizeof(int);
     archivoIDs.close();
+
+
     RespuestaServidor respuesta;
     Mensaje mensaje;
     do {
-        mensaje = menu();
-        /*if (mensaje.tipoDeMensaje== VER_MASCOTA){
-            //hacer cosas de historia clinica.
-            respuesta_aux = recibirMensajeCliente(mensaje);
-            preguntar_historia_clinica();
-        }*/
+        mensaje = escucharCliente();
         respuesta = recibirMensajeCliente(mensaje);
         string mensajeCasteado = respuestaToString(respuesta, mensaje);
-        cout<<mensajeCasteado<<endl;
-        system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
-        system("clear");
-    }while(respuesta.romperConexion == false);
+        enviarACliente(&mensajeCasteado);
+    }while(true);
 
 }

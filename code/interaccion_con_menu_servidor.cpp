@@ -109,7 +109,7 @@ string mascotaToString(Mascota mascota){
         << "\n Raza: " << mascota.raza
         << "\n Estatura: "<<mascota.estatura
         << "\n Peso: " << mascota.peso
-        //<< "\n Sexo: " << mascota.sexo
+        << "\n Sexo: " << mascota.sexo
         <<endl;
     return strout.str();
 }
@@ -118,16 +118,16 @@ string respuestaToString(RespuestaServidor respuesta, Mensaje mensaje){
     if (respuesta.errorEnOperacion) {
         return "Error, revise los parametros de entrada";
     }
-    string casteo="";
+    string casteo="Tamano del archivo : " + to_string(TAMANO_ACTUAL)+ "\n";
     switch (mensaje.tipoDeMensaje){
     case ELIMINAR_MASCOTA:
-        casteo = "Mascota eliminada\n";
+        casteo += "Mascota eliminada\n";
         break;
     case VER_MASCOTA:
-        casteo = mascotaToString(respuesta.mascota);
+        casteo += mascotaToString(respuesta.mascota);
         break;
     case ANADIR_MASCOTA:
-        casteo = "Mascota anadida\n";
+        casteo += "Mascota anadida\n";
         break;
     case BUSCAR_MASCOTA:
         for (auto mascota : respuesta.busqueda){

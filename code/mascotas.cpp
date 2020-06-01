@@ -46,3 +46,18 @@ int guardar_en_archivo(void *arr,const char * nombre, int TAMANO_ACTUAL, int n )
     }
     return 1;
 }
+
+std::string leerHistoriaClinica(char* ruta){
+    std::ifstream nameFileout;
+    nameFileout.open(ruta);
+    std::string linea, texto = "";
+    while(std::getline(nameFileout, linea)){
+       texto+=linea+'\n';
+    }
+    return texto;
+}
+void escribirHistoriaClinica(char * ruta, std::string data){
+    std::ofstream out(ruta);
+    out << data;
+    out.close();
+}

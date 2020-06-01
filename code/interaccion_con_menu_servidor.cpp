@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
+#include "mascotas.h"
 #include "mensaje.h"
 #include "interactuar_archivos.h"
+#include "interaccion_con_menu_servidor.h"
 using namespace std;
 RespuestaServidor recibirMensajeCliente(Mensaje mensaje);
 RespuestaServidor eliminarMascota(Mascota mascota);
@@ -135,7 +137,20 @@ string respuestaToString(RespuestaServidor respuesta, Mensaje mensaje){
     return casteo;
 }
 
+char* obtenerRutaHistoriaClinica( Mascota * mascota){
+    char * ruta = (char*) malloc (100);
+    sprintf(ruta, "%s/%d.txt","historia_clinica", mascota->id);
+    return ruta; 
+}
 
+string obtenerHistoriaClinica(Mascota mascota){
+    char * ruta = obtenerRutaHistoriaClinica(&mascota);
+    return leerHistoriaClinica(ruta);
+}
+void cambiarHistoriaClinica(Mascota mascota, string nuevaHistoriaClinica){
+    char * ruta = obtenerRutaHistoriaClinica(&mascota);
+    escribirHistoriaClinica(ruta,nuevaHistoriaClinica);
+}
 
 
 int procesar_nombre (char* original, char* resultado){

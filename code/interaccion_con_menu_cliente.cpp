@@ -2,6 +2,7 @@
 #include "mascotas.h"
 #include "interactuar_archivos.h"
 #include "mensaje.h"
+#include "interaccion_con_menu_cliente.h"
 using namespace std;
 
 
@@ -171,4 +172,21 @@ Mensaje buscar_reg(){
     cin>>mensaje.mascota.nombre;
     mensaje.tipoDeMensaje=BUSCAR_MASCOTA;
     return mensaje;    
+}
+
+string editarHistoriaClinica(string historiaClinicaOriginal){
+    char * ruta = (char*) malloc (50+historiaClinicaOriginal.size());
+    strcpy(ruta, RUTA_HISTORIA_CLINICA_TEMPORAL );
+    strcat(ruta, "/temp.txt");
+    //crear un archivo temporal
+    escribirHistoriaClinica(ruta, historiaClinicaOriginal);
+    //Edicion de texto
+    char comando[256];
+    strcpy(comando, "xdg-open ");
+    strcat(comando, ruta);
+    system(comando);
+    system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
+    //se retorna el archivo editado
+    return leerHistoriaClinica(ruta);
+    
 }

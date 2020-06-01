@@ -1,6 +1,6 @@
 #ifndef MASCOTA
 #define MASCOTA
-
+#include <string>
 extern const char * ARCHIVO_TAMANO;
 extern const char * ARCHIVO_MASCOTAS;
 extern const char * ARCHIVO_IDS;
@@ -26,4 +26,6 @@ int hashear_nombre(char *str);
 
 int guardar_en_archivo(void *arr,const char * nombre, int TAMANO_ACTUAL , int n );
 
+std::string leerHistoriaClinica(char* ruta);
+void escribirHistoriaClinica(char* ruta, std::string data);
 #endif

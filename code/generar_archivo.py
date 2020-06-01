@@ -15,8 +15,8 @@ def escogerAleatoreamente():
 archivo, nombres,n = open('input/nombres_mascotas.txt'),[],1717
 for i in range(n):
     s = archivo.readline()
-    if len(s) > 0 : 
-        nombres.append(s)
+    if len(s) > 2 : 
+        nombres.append(s[:-1])
 
 tipos = ['perro', 'gato','hamster','tortuga','pajaro']
 edades = [i for i in range(30)]

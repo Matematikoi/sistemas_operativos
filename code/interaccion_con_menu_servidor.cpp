@@ -104,11 +104,11 @@ string mascotaToString(Mascota mascota){
     ostringstream strout;
     strout<< "\n Nombre: " << mascota.nombre 
         << "\n ID : "<<mascota.id
-        //<< "\n Tipo: " << mascota.tipo 
-        //<< "\n Edad: " << mascota.edad
-        //<< "\n Raza: " << mascota.raza
-        //<< "\n Estatura: "<<mascota.estatura
-        //<< "\n Peso: " << mascota.peso
+        << "\n Tipo: " << mascota.tipo 
+        << "\n Edad: " << mascota.edad
+        << "\n Raza: " << mascota.raza
+        << "\n Estatura: "<<mascota.estatura
+        << "\n Peso: " << mascota.peso
         //<< "\n Sexo: " << mascota.sexo
         <<endl;
     return strout.str();

@@ -50,8 +50,8 @@ void enviarMensaje(Mensaje mensaje){
     //con esta funcion se envia al server la info
 }
 string mensajeRecibido(){
-    char buffer[100];
-    int r = recv(sock, buffer, 100, 0);
+    char buffer[1000];
+    int r = recv(sock, buffer, 1000, 0);
     printf("MENSAJE %s\n", buffer);
     return "";
 }

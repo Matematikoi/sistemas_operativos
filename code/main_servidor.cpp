@@ -30,7 +30,7 @@ Mensaje escucharCliente()
 
 void enviarACliente(char *data, int sd)
 {        
-    int r = send(sd, data, 100, 0);
+    int r = send(sd, data, 1000, 0);
     if(r < 0){
         puts("\nError en send()");
         return;

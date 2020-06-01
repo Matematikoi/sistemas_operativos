@@ -9,6 +9,7 @@ RespuestaServidor eliminarMascota(Mascota mascota);
 RespuestaServidor anadirMascota(Mascota mascota);
 RespuestaServidor verMascota(Mascota mascota);
 RespuestaServidor buscarMascota(Mascota mascota);
+RespuestaServidor cambiarHistoriaClinicaEnServer(Mascota mascota);
 string toString(RespuestaServidor respuesta);
 bool comparar_nombres (char *s1, char *s2);
 int procesar_nombre (char* original, char* resultado);
@@ -31,6 +32,9 @@ RespuestaServidor recibirMensajeCliente(Mensaje mensaje){
             break;
         case ROMPER_CONEXION:
             respuestaServidor.romperConexion=true;
+            break;
+        case HISTORIA_CLINICA:
+            respuestaServidor = cambiarHistoriaClinicaEnServer(mensaje.mascota);
             break;
 
     }
@@ -135,6 +139,11 @@ string respuestaToString(RespuestaServidor respuesta, Mensaje mensaje){
         break;
     }
     return casteo;
+}
+RespuestaServidor cambiarHistoriaClinicaEnServer(Mascota mascota){
+    RespuestaServidor respuesta;
+    respuesta.historiaClinica = obtenerHistoriaClinica(mascota);
+    return respuesta;
 }
 
 char* obtenerRutaHistoriaClinica( Mascota * mascota){

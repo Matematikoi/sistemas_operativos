@@ -8,7 +8,7 @@ using namespace std;
 
 int main (){
     Mascota m;
-    m.id = 1;
+    m.id = 2;
     string lecturaDelServer = obtenerHistoriaClinica(m);
     string lecturaDelCliente = editarHistoriaClinica(lecturaDelServer);
     cambiarHistoriaClinica(m, lecturaDelCliente);

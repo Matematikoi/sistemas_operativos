@@ -20,6 +20,7 @@ Mensaje menu(){
     cout<<("\tBorrar registro\t\t\tIngrese (3)\n\n");
     cout<<("\tBuscar Registro\t\t\tIngrese (4)\n\n");
     cout<<("\tSalir\t\t\t\tIngrese (5)\n\n\t");
+    cout<<("\tModificar Historia Clinica  (6)\n\n");
     cin>>opcion;
     Mensaje mensaje;
 	switch(opcion){
@@ -44,6 +45,9 @@ Mensaje menu(){
             mensaje.tipoDeMensaje = ROMPER_CONEXION;
 			break;
 		}
+        case '6' :
+            mensaje = modificar_hist();
+            break;
 		
 		default:{
 			cout<<"\n\n\n\t"<<opcion<<" NO ES UNA OPCION\n";
@@ -173,6 +177,17 @@ Mensaje buscar_reg(){
     mensaje.tipoDeMensaje=BUSCAR_MASCOTA;
     return mensaje;    
 }
+Mensaje modificar_hist(){
+    int id;
+    Mensaje mensaje;
+    memset( &mensaje,0, sizeof(Mensaje));
+    cout << "Inserte el id: ";
+    cin>>id;
+    mensaje.mascota.id= id;
+    mensaje.tipoDeMensaje= HISTORIA_CLINICA;
+    return mensaje;  
+}
+
 
 string editarHistoriaClinica(string historiaClinicaOriginal){
     char * ruta = (char*) malloc (50+historiaClinicaOriginal.size());

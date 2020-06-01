@@ -11,7 +11,7 @@ Mensaje anadir_reg();
 Mensaje ver_reg();
 Mensaje borrar_reg();
 Mensaje buscar_reg();
-
+Mensaje modificar_hist();
 Mensaje menu(){
 	char opcion;
     cout<<("\n\n\n\tMENU");
@@ -20,7 +20,7 @@ Mensaje menu(){
     cout<<("\tBorrar registro\t\t\tIngrese (3)\n\n");
     cout<<("\tBuscar Registro\t\t\tIngrese (4)\n\n");
     cout<<("\tSalir\t\t\t\tIngrese (5)\n\n\t");
-    cout<<("\tModificar Historia Clinica  (6)\n\n");
+    //cout<<("\tModificar Historia Clinica  (6)\n\n");
     cin>>opcion;
     Mensaje mensaje;
 	switch(opcion){

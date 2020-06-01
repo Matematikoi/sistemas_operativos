@@ -17,7 +17,7 @@ struct RespuestaServidor{
     bool romperConexion=false;
     bool errorEnOperacion = false;
     std::vector<Mascota> busqueda;
-    string historiaClinica;
+    std::string historiaClinica;
 };
 
 #endif

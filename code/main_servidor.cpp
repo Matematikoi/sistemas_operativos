@@ -28,9 +28,9 @@ Mensaje escucharCliente()
     return mensaje;
 }
 
-void enviarACliente(char *data, int sd)
+void enviarACliente(char *data, int sd, int tamanoBuffer)
 {        
-    int r = send(sd, data, 1000, 0);
+    int r = send(sd, data, tamanoBuffer, 0);
     if(r < 0){
         puts("\nError en send()");
         return;
@@ -149,7 +149,6 @@ void loop()
                     getpeername(sd, (struct sockaddr *)&address, (socklen_t *)&addrlen);
                     printf("Host disconnected , ip %s , port %d \n",
                            inet_ntoa(address.sin_addr), ntohs(address.sin_port));
-
                     close(sd);
                     client_socket[i] = 0;
                 }
@@ -161,10 +160,10 @@ void loop()
                     string mensajeCasteado = respuestaToString(respuesta, mensajeRecibido);                    
                     //printf("RESPUESTA %s\n", mensajeCasteado.c_str());
                     char * res;
-                    res = (char*) malloc(mensajeCasteado.size()+1);
+                    res = (char*) malloc(mensajeCasteado.size());
                     strcpy(res, mensajeCasteado.c_str());
                     printf("Mensaje generado, enviandose...\n");
-                    enviarACliente(res, sd);
+                    enviarACliente(res, sd, mensajeCasteado.size()+1);
                     //send(sd, &mensajeCasteado, sizeof(mensajeCasteado), 0);
                 }
             }

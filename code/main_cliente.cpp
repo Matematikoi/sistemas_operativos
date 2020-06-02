@@ -49,11 +49,19 @@ void enviarMensaje(Mensaje mensaje){
     write(sock, &mensaje, sizeof(Mensaje));
     //con esta funcion se envia al server la info
 }
-string mensajeRecibido(){
-    char buffer[1000];
-    int r = recv(sock, buffer, 1000, 0);
-    printf("MENSAJE %s\n", buffer);
-    return "";
+void mensajeRecibido(){
+	int tamanoDelBuffer = 1000;
+    char buffer[tamanoDelBuffer];
+	while (true){
+		int r = recv(sock, buffer, tamanoDelBuffer, 0);
+		if(r < 0){
+            perror("read error");
+            exit(-1);
+        }
+		printf("%s", buffer);
+        if(r < tamanoDelBuffer-1)break;
+	}
+	printf("\n");
 }
 void romperConexion(){
     //funcion con la que se rompe conexion al server
@@ -77,9 +85,8 @@ int main (int argc, char ** argv){
             break;
         }
         enviarMensaje(mensaje);
-        string respuesta = mensajeRecibido();
-        cout <<respuesta<<endl;
-        //system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
+        mensajeRecibido();
+        system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
         //system("clear");
     }while(true);
 

@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 #include "mascotas.h"
 #include "mensaje.h"
+#include <termios.h>
+#include <stdio_ext.h>
+#include <unistd.h>
 #include "interaccion_con_menu_cliente.h"
 using namespace std;
 
@@ -11,6 +14,31 @@ Mensaje ver_reg();
 Mensaje borrar_reg();
 Mensaje buscar_reg();
 Mensaje modificar_hist();
+bool userYesNoInputIsValid(string input);
+void makePause(string message);
+
+int mygetch()
+{
+    struct termios oldt,
+        newt;
+    int ch;
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    ch = getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    return ch;
+}
+
+void makePause(string message)
+{
+    //Se establece una pausa hasta que el usuario presione alguna tecla
+    cout << message << endl;
+    __fpurge(stdin);
+    mygetch();
+}
+
 Mensaje menu(string respuestaTamano){
 	char opcion;
     cout<<("\n\n\n\tMENU");
@@ -106,6 +134,12 @@ string getAndVerifyString(int strLenght)
     return str;
 }
 
+//Verificar si el input de yes/no del usuario es correcto
+bool userYesNoInputIsValid(string input)
+{
+    return input == "n" || input == "N" || input == "s" || input == "S";
+}
+
 //Función que decide si un input para el sexo es válido
 bool animalSexInputIsValid(string input)
 {
@@ -188,10 +222,11 @@ Mensaje modificar_hist(){
 }
 
 
-string editarHistoriaClinica(string historiaClinicaOriginal){
+string editarHistoriaClinica(string historiaClinicaOriginal, int id){
     char * ruta = (char*) malloc (50+historiaClinicaOriginal.size());
     strcpy(ruta, RUTA_HISTORIA_CLINICA_TEMPORAL );
-    strcat(ruta, "/temp.txt");
+    string idString = "/" + to_string(id) +  "temp.txt";    
+    strcat(ruta, idString.c_str());
     //crear un archivo temporal
     escribirHistoriaClinica(ruta, historiaClinicaOriginal);
     //Edicion de texto
@@ -199,7 +234,7 @@ string editarHistoriaClinica(string historiaClinicaOriginal){
     strcpy(comando, "xdg-open ");
     strcat(comando, ruta);
     system(comando);
-    system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
+    makePause("Presione una tecla cuando termine de editar la historia clínica...");
     //se retorna el archivo editado
     return leerHistoriaClinica(ruta);
     

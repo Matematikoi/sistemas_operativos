@@ -66,16 +66,9 @@ RespuestaServidor verMascota(Mascota mascota){
     int id = mascota.id;
     int idx =  recuperar_id(id);
     if (idx == -1){
-        cout << "IDX -1 \n";
         respuesta.errorEnOperacion = true;
         return respuesta;
     }
-    
-    //AQUI FALTA VER QUE SE HACE CON LA HISTORIA CLINICA
-    //POR QUE NO SE SI LEER Y PASAR STRINGS
-    //O SIMPLEMENTE HACERLO LOCAL
-
-
     respuesta.mascota=recuperar_indice(idx);
     return respuesta;
 }

@@ -8,6 +8,8 @@ Mensaje anadir_reg();
 Mensaje ver_reg();
 Mensaje borrar_reg();
 Mensaje buscar_reg();
-std::string editarHistoriaClinica(std::string historiaClinicaOriginal);
+bool userYesNoInputIsValid(std::string input);
+void makePause(std::string message);
+std::string editarHistoriaClinica(std::string historiaClinicaOriginal, int id);
 
 #endif

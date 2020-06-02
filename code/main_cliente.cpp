@@ -89,10 +89,30 @@ int main (int argc, char ** argv){
             romperConexion();
             break;
         }
-        enviarMensaje(mensaje);
-        string respuestaServer = mensajeRecibido();
+		enviarMensaje(mensaje);
+		string respuestaServer = mensajeRecibido();
 		cout<<respuestaServer;
-        system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
+
+		if(mensaje.tipoDeMensaje == VER_MASCOTA){			
+			string verHistoriaClinica = "";
+			while(!userYesNoInputIsValid(verHistoriaClinica)){
+				puts("¿Desea ver la historia clínica?");
+				puts("Por favor ingrese solo S/N");				
+				cin >> verHistoriaClinica;							
+			}
+			int verHistoria = (verHistoriaClinica == "s" || verHistoriaClinica == "S" ? 1 : 0);
+			write(sock, &verHistoria, sizeof(int));
+			if(verHistoria){
+				string historiaClinica = mensajeRecibido();
+				string nuevaHistoriaClinica = editarHistoriaClinica(historiaClinica, mensaje.mascota.id);		
+				cout << "NUEVA HISTORIA "<<nuevaHistoriaClinica<<'\n';	
+				char * historia;
+				historia = (char*) malloc(nuevaHistoriaClinica.size());
+				strcpy(historia, nuevaHistoriaClinica.c_str());
+				write(sock, historia, nuevaHistoriaClinica.size());
+			}			
+		}        
+        makePause("Presione cualquier tecla para continuar...");
         //system("clear");
     }while(true);
 

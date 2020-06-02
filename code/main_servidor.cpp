@@ -21,13 +21,6 @@ using namespace std;
 
 //TO RUN g++ -std=c++11 server.cpp -o server && ./server
 
-Mensaje escucharCliente()
-{
-    Mensaje mensaje;
-    //funcion que lee la peticion del cliente
-    return mensaje;
-}
-
 void enviarACliente(char *data, int sd, int tamanoBuffer)
 {        
     int r = send(sd, data, tamanoBuffer, 0);
@@ -155,16 +148,34 @@ void loop()
 
                 else
                 {                                        
-                    printf("TIPO %d\n", mensajeRecibido.tipoDeMensaje);
+                    printf("TIPO %d\n", mensajeRecibido.tipoDeMensaje);                    
                     RespuestaServidor respuesta = recibirMensajeCliente(mensajeRecibido);
-                    string mensajeCasteado = respuestaToString(respuesta, mensajeRecibido);                    
-                    //printf("RESPUESTA %s\n", mensajeCasteado.c_str());
+                    string mensajeCasteado = respuestaToString(respuesta, mensajeRecibido);                                        
                     char * res;
                     res = (char*) malloc(mensajeCasteado.size());
                     strcpy(res, mensajeCasteado.c_str());
-                    printf("Mensaje generado, enviandose...\n");
-                    enviarACliente(res, sd, mensajeCasteado.size()+1);
-                    //send(sd, &mensajeCasteado, sizeof(mensajeCasteado), 0);
+                    enviarACliente(res, sd, mensajeCasteado.size()+1);  
+
+                    if(mensajeRecibido.tipoDeMensaje == VER_MASCOTA) {
+                        int verHistoriaClinica;
+                        read(sd, &verHistoriaClinica, sizeof(int));
+                        if(verHistoriaClinica){   
+                            puts("VIENDO HISTORIA CLINICA");                     
+                            string historiaClinica = obtenerHistoriaClinica(mensajeRecibido.mascota);
+                            printf("HISTORIA ACTUAL %s\n", historiaClinica.c_str());
+                            char * historia;
+                            historia = (char*) malloc(historiaClinica.size());
+                            strcpy(historia, historiaClinica.c_str());
+                            enviarACliente(historia, sd, historiaClinica.size()+1);
+                            
+                            int tamanoDelBuffer = 1000;
+                            char buffer[tamanoDelBuffer];                            
+                            int r = read(sd, buffer, tamanoDelBuffer);
+                            string nuevaHistoria(buffer);
+                            printf("NUEVA HISTORIA %s\n", nuevaHistoria.c_str());
+                            cambiarHistoriaClinica(mensajeRecibido.mascota, nuevaHistoria);
+                        }
+                    }
                 }
             }
         }

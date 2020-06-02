@@ -10,12 +10,14 @@ RespuestaServidor anadirMascota(Mascota mascota);
 RespuestaServidor verMascota(Mascota mascota);
 RespuestaServidor buscarMascota(Mascota mascota);
 RespuestaServidor cambiarHistoriaClinicaEnServer(Mascota mascota);
+
 string toString(RespuestaServidor respuesta);
 bool comparar_nombres (char *s1, char *s2);
 int procesar_nombre (char* original, char* resultado);
 
 
 RespuestaServidor recibirMensajeCliente(Mensaje mensaje){
+    TAMANO_ACTUAL = leer_tamano();
     RespuestaServidor respuestaServidor;
     switch (mensaje.tipoDeMensaje){
         case ELIMINAR_MASCOTA:
@@ -36,8 +38,10 @@ RespuestaServidor recibirMensajeCliente(Mensaje mensaje){
         case HISTORIA_CLINICA:
             respuestaServidor = cambiarHistoriaClinicaEnServer(mensaje.mascota);
             break;
+        
 
     }
+    guardar_tamano(&TAMANO_ACTUAL);
     return respuestaServidor;
 }
 RespuestaServidor eliminarMascota(Mascota mascota){
@@ -118,7 +122,7 @@ string respuestaToString(RespuestaServidor respuesta, Mensaje mensaje){
     if (respuesta.errorEnOperacion) {
         return "Error, revise los parametros de entrada";
     }
-    string casteo="Tamano del archivo : " + to_string(TAMANO_ACTUAL)+ "\n";
+    string casteo="";
     switch (mensaje.tipoDeMensaje){
     case ELIMINAR_MASCOTA:
         casteo += "Mascota eliminada\n";
@@ -134,7 +138,9 @@ string respuestaToString(RespuestaServidor respuesta, Mensaje mensaje){
             casteo+=mascotaToString(mascota);
         }
         break;
-    
+    case PETICION_TAMANO:
+        casteo += "Tamano del archivo : " + to_string(TAMANO_ACTUAL)+ "\n";
+        break;
     default:
         break;
     }

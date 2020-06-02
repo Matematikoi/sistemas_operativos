@@ -3,7 +3,7 @@
 #include "mensaje.h"
 #include <string>
 #define RUTA_HISTORIA_CLINICA_TEMPORAL "historiaClinicaTemporal"
-Mensaje menu();
+Mensaje menu(std::string respuestaTamano);
 Mensaje anadir_reg();
 Mensaje ver_reg();
 Mensaje borrar_reg();

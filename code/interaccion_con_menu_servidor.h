@@ -11,4 +11,5 @@ std::string respuestaToString(RespuestaServidor respuesta, Mensaje mensaje);
 std::string obtenerHistoriaClinica(Mascota mascota);
 void cambiarHistoriaClinica(Mascota mascota, std::string nuevaHistoriaClinica);
 
+
 #endif

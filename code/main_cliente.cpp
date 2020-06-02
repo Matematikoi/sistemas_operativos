@@ -49,7 +49,8 @@ void enviarMensaje(Mensaje mensaje){
     write(sock, &mensaje, sizeof(Mensaje));
     //con esta funcion se envia al server la info
 }
-void mensajeRecibido(){
+string mensajeRecibido(){
+	string resultado = "";
 	int tamanoDelBuffer = 1000;
     char buffer[tamanoDelBuffer];
 	while (true){
@@ -58,10 +59,11 @@ void mensajeRecibido(){
             perror("read error");
             exit(-1);
         }
-		printf("%s", buffer);
+		for (int i =0; i<r;++i)resultado+=buffer[i];
         if(r < tamanoDelBuffer-1)break;
 	}
-	printf("\n");
+	resultado+="\n";
+	return resultado;
 }
 void romperConexion(){
     //funcion con la que se rompe conexion al server
@@ -77,15 +79,19 @@ int main (int argc, char ** argv){
     inicializarSocket(port, argv[1]);
     
 
-    Mensaje mensaje;
+    Mensaje mensaje, mensajePeticionTamano;
+	mensajePeticionTamano.tipoDeMensaje = PETICION_TAMANO;
     do {
-        mensaje = menu();
+		enviarMensaje(mensajePeticionTamano);
+		string respuestaTamano = mensajeRecibido();
+        mensaje = menu(respuestaTamano);
         if (mensaje.tipoDeMensaje == ROMPER_CONEXION){
             romperConexion();
             break;
         }
         enviarMensaje(mensaje);
-        mensajeRecibido();
+        string respuestaServer = mensajeRecibido();
+		cout<<respuestaServer;
         system("read -n 1 -s -r -p \"Presione cualquier tecla para continuar...\"");
         //system("clear");
     }while(true);

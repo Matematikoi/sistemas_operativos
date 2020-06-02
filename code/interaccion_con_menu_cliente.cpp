@@ -1,18 +1,17 @@
 #include <bits/stdc++.h>
 #include "mascotas.h"
-#include "interactuar_archivos.h"
 #include "mensaje.h"
 #include "interaccion_con_menu_cliente.h"
 using namespace std;
 
 
-Mensaje menu();
+Mensaje menu(string respuestaTamano);
 Mensaje anadir_reg();
 Mensaje ver_reg();
 Mensaje borrar_reg();
 Mensaje buscar_reg();
 Mensaje modificar_hist();
-Mensaje menu(){
+Mensaje menu(string respuestaTamano){
 	char opcion;
     cout<<("\n\n\n\tMENU");
     cout<<("\n\tIngresar registro\t\tIngrese (1)\n\n");
@@ -22,6 +21,7 @@ Mensaje menu(){
     cout<<("\tSalir\t\t\t\tIngrese (5)\n\n\t");
     //cout<<("\tModificar Historia Clinica  (6)\n\n");
     cin>>opcion;
+    cout<<respuestaTamano;
     Mensaje mensaje;
 	switch(opcion){
 		case '1':{
@@ -54,7 +54,6 @@ Mensaje menu(){
 			break;	
 		}
 	}
-    
     return mensaje;
 }
 //Función para verificar un input correcto de un número entero por parte del usuario

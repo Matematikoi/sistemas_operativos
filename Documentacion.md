@@ -123,3 +123,14 @@ genera una pausa de input que se detiene al presionar una tecla cualquiera
 1. `std::string editarHistoriaClinica(std::string historiaClinicaOriginal, int id);`
  permite editar la historia clinica con el editor del usuario
 
+Imagenes del proceso
+=====================
+![alt text](imgDoc/1.jpeg "")
+![alt text](imgDoc/2.jpeg "")
+![alt text](imgDoc/3.jpeg "")
+![alt text](imgDoc/4.jpeg "")
+![alt text](imgDoc/5.jpeg "")
+![alt text](imgDoc/6.jpeg "")
+![alt text](imgDoc/7.jpeg "")
+
+

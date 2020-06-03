@@ -53,16 +53,22 @@ string mensajeRecibido(){
 	string resultado = "";
 	int tamanoDelBuffer = 1000;
     char buffer[tamanoDelBuffer];
+	int r;
 	while (true){
-		int r = recv(sock, buffer, tamanoDelBuffer, 0);
+		r = recv(sock, buffer, tamanoDelBuffer, 0);
 		if(r < 0){
             perror("read error");
             exit(-1);
         }
 		for (int i =0; i<r;++i)resultado+=buffer[i];
         if(r < tamanoDelBuffer-1)break;
+
 	}
 	resultado+="\n";
+
+
+	//cout<<endl<<"bytes leidos "<<r<<endl;
+
 	return resultado;
 }
 void romperConexion(){

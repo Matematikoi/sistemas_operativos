@@ -39,6 +39,30 @@ struct sockaddr_in address;
 Mensaje mensajeRecibido;
 
 fd_set readfds;
+string tipoDeOperacion(int operacion, Mascota mascota){
+    string respuesta = "";
+    switch (operacion){
+        case VER_MASCOTA:
+            respuesta +="lectura:";
+            respuesta += to_string(mascota.id);
+            break;
+        case ELIMINAR_MASCOTA:
+            respuesta +="borrado";
+            break;
+        case BUSCAR_MASCOTA:
+            respuesta +="busqueda:";
+            respuesta+=mascota.nombre;
+            break;
+        case ANADIR_MASCOTA:
+            respuesta+= "insercion";
+            break;
+        case PETICION_TAMANO:
+            respuesta+="peticion_de_tamano";
+        default :
+            break;
+    }
+    return respuesta;
+}
 
 void initializeServer()
 {
@@ -148,7 +172,11 @@ void loop()
 
                 else
                 {                                        
-                    printf("TIPO %d\n", mensajeRecibido.tipoDeMensaje);                    
+                    time_t t = std::time(nullptr);
+                    tm tm = *std::localtime(&t);
+                    cout.imbue(std::locale("es_CO.utf8"));
+                    cout <<"FECHA: "<< put_time(&tm, "%Y %m %d T %H:%M:%S -") << "IP:"<<inet_ntoa(address.sin_addr)<<" Puerto:" << ntohs(address.sin_port)
+                    <<" "<<tipoDeOperacion(mensajeRecibido.tipoDeMensaje, mensajeRecibido.mascota)<<'\n';
                     RespuestaServidor respuesta = recibirMensajeCliente(mensajeRecibido);
                     string mensajeCasteado = respuestaToString(respuesta, mensajeRecibido);                                        
                     char * res;
